@@ -1,0 +1,253 @@
+:root {
+  --primary: #490969;
+  --light-purple: #7914ad;
+  --bg: #f9f9f9;
+  --text: #1c1c1c;
+  --card-bg: #ffffff;
+  --border: #e5e5e5;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+/* === NAVBAR === */
+header {
+  background: var(--primary);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  opacity: 0.8;
+}
+
+/* === HERO === */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(to bottom right, var(--primary), var(--light-purple));
+  color: white;
+  padding: 0 20px;
+}
+
+.hero h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  max-width: 600px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.hero button {
+  background: white;
+  color: var(--primary);
+  border: none;
+  padding: 12px 28px;
+  font-size: 1rem;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hero button:hover {
+  background: #7914ad;
+  color: white;
+  transform: scale(1.05);
+}
+
+.hero button:active {
+  transform: scale(0.95);
+}
+
+/* === FEED === */
+.feed {
+  max-width: 700px;
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+.feed-title {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 40px;
+}
+
+.post {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: 0.3s;
+}
+
+.post:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.post-user {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.post-time {
+  font-size: 0.9rem;
+  color: gray;
+}
+
+.post-text {
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.hashtags {
+  margin-top: 10px;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+/* === LIKE BUTTON === */
+.like-button {
+  background: #fff;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+}
+
+.like-button:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.like-button:active {
+  transform: scale(0.95);
+}
+
+/* === ABOUT PAGE === */
+.about {
+  padding: 80px 20px;
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+}
+
+.about-container {
+  max-width: 800px;
+  text-align: center;
+}
+
+.about-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.about-subtitle {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.about-block {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 25px 20px;
+  margin-bottom: 30px;
+  text-align: left;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.about-block h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+.about-block p {
+  font-size: 1.05rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.about-block ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-block ul li {
+  font-size: 1.05rem;
+  padding: 8px 0;
+  color: #333;
+}
+
+/* === FOOTER === */
+footer {
+  text-align: center;
+  padding: 30px 10px;
+  color: gray;
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+  margin-top: 80px;
+}
+
+@media (max-width: 600px) {
+  .hero h2 {
+    font-size: 2rem;
+  }
+  header h1 {
+    font-size: 1.2rem;
+  }
+}
