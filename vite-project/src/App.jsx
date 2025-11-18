@@ -1,14 +1,41 @@
-import './App.css'
+import Header from './Header.jsx'
+import Hero from './Hero.jsx';
+import Posts from './Posts.jsx';
+import Footer from './Footer.jsx';
+import About from './About';
 
 function App() {
+const postList = [
+  {
+    user: "@FootballFan",
+    time: "преди 1 час",
+    text: "Уникален гол на последния мач! ⚽🔥 Ливърпул показа невероятна стратегия и отборен дух.",
+    hashtags: ["#football", "#goals", "#спорт"]
+  },
+  {
+    user: "@BasketballKing",
+    time: "преди 3 часа",
+    text: "Точно 30 точки в последната четвърт! 🏀 Невероятен завършек на сезона за отбора ни.",
+    hashtags: ["#basketball", "#dunks", "#спорт"]
+  },
+  {
+    user: "@VolleyQueen",
+    time: "вчера",
+    text: "Супер мач на националния волейбол! 🏐 Тимът ни показа страхотна координация и техника.",
+    hashtags: ["#volleyball", "#beachvolley", "#спорт"]
+  }
+];
+
+
   return (
-    <>
-      <h1>Vite + React</h1>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <Header />
+      <Hero />
+      <Posts posts={postList} />
+      <About />
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;
