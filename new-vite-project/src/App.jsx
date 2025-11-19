@@ -3,6 +3,8 @@ import Hero from './Hero.jsx';
 import Posts from './Posts.jsx';
 import Footer from './Footer.jsx';
 import About from './About';
+import Create from './Create.jsx';
+import Profile from './Profile.jsx';
 
 function App() {
 const postList = [
@@ -32,7 +34,9 @@ const postList = [
       <Header />
       <Hero />
       <Posts posts={postList} />
+      <Profile />
       <About />
+      <Create />
       <Footer />
     </div>
   );
