@@ -16,7 +16,7 @@ body {
   scroll-behavior: smooth;
 }
 
-/* === NAVBAR === */
+/* === HEADER / NAV === */
 header {
   background: var(--primary);
   color: white;
@@ -84,7 +84,7 @@ nav a:hover {
 }
 
 .hero button:hover {
-  background: #7914ad;
+  background: var(--light-purple);
   color: white;
   transform: scale(1.05);
 }
@@ -122,34 +122,6 @@ nav a:hover {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
-.post-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.post-user {
-  font-weight: 600;
-  color: var(--primary);
-}
-
-.post-time {
-  font-size: 0.9rem;
-  color: gray;
-}
-
-.post-text {
-  font-size: 1.05rem;
-  line-height: 1.5;
-}
-
-.hashtags {
-  margin-top: 10px;
-  color: var(--primary);
-  font-weight: 500;
-}
-
 /* === LIKE BUTTON === */
 .like-button {
   background: #fff;
@@ -174,7 +146,7 @@ nav a:hover {
   transform: scale(0.95);
 }
 
-/* === ABOUT PAGE === */
+/* === ABOUT === */
 .about {
   padding: 80px 20px;
   background: var(--bg);
@@ -216,7 +188,8 @@ nav a:hover {
   color: var(--primary);
 }
 
-.about-block p {
+.about-block p,
+.about-block ul li {
   font-size: 1.05rem;
   color: #333;
   line-height: 1.6;
@@ -227,21 +200,6 @@ nav a:hover {
   padding: 0;
 }
 
-.about-block ul li {
-  font-size: 1.05rem;
-  padding: 8px 0;
-  color: #333;
-}
-
-/* === FOOTER === */
-footer {
-  text-align: center;
-  padding: 30px 10px;
-  color: gray;
-  font-size: 0.9rem;
-  border-top: 1px solid var(--border);
-  margin-top: 80px;
-}
 /* === CREATE FORM === */
 .container {
   max-width: 600px;
@@ -312,9 +270,9 @@ form button:hover {
 
 form button:active {
   transform: scale(0.95);
-
 }
-/* === PROFILE PAGE === */
+
+/* === PROFILE === */
 .profile-container {
   max-width: 700px;
   margin: 80px auto;
@@ -371,8 +329,27 @@ form button:active {
   color: gray;
 }
 
-/* RESPONSIVE */
+/* === FOOTER === */
+footer {
+  text-align: center;
+  padding: 30px 10px;
+  color: gray;
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+  margin-top: 80px;
+}
+
+/* === RESPONSIVE === */
 @media (max-width: 600px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  .hero h2 {
+    font-size: 2rem;
+  }
+
+  .container,
   .profile-container {
     margin: 50px 15px;
     padding: 15px;
@@ -386,14 +363,6 @@ form button:active {
   .profile-info h2 {
     font-size: 1.5rem;
   }
-}
-
-
-@media (max-width: 600px) {
-  .container {
-    margin: 50px 15px;
-    padding: 15px;
-  }
 
   form input,
   form textarea {
@@ -403,16 +372,5 @@ form button:active {
   form button {
     padding: 10px;
     font-size: 0.95rem;
-  }
-}
-
-
-
-@media (max-width: 600px) {
-  .hero h2 {
-    font-size: 2rem;
-  }
-  header h1 {
-    font-size: 1.2rem;
   }
 }

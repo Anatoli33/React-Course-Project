@@ -35,6 +35,7 @@ const postList = [
       <Header />
       <nav>
         <Link to="/">Home</Link>
+        <Link to="/posts">About</Link>
         <Link to="/create">Create Post</Link>
         <Link to="/profile">Profile</Link>
         <Link to="/about">About</Link>
@@ -42,6 +43,7 @@ const postList = [
 
       <Routes>
         <Route path="/" element={<Hero />} />
+        <Route path="/posts" element={<Posts posts={postList}/>} />
         <Route path="/create" element={<Create />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/about" element={<About />} />
