@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Hero = ()=>{
     return(
@@ -8,7 +9,9 @@ const Hero = ()=>{
         Споделяй спортни истории, следи тренировките на приятелите си и вдъхновявай другите.
         Единственото място, където спортът среща общността!
       </p>
-      <a href="#feed"><button>Виж постове</button></a>
+      <Link to="/posts">
+        <button>Виж постове</button>
+      </Link>
     </section> 
     )
 };
