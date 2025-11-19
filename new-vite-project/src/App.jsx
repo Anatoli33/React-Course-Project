@@ -1,3 +1,4 @@
+import { Route, Routes, Link } from 'react-router-dom';
 import Header from './Header.jsx'
 import Hero from './Hero.jsx';
 import Posts from './Posts.jsx';
@@ -30,15 +31,24 @@ const postList = [
 
 
   return (
-    <div>
+    <>
       <Header />
-      <Hero />
-      <Posts posts={postList} />
-      <Profile />
-      <About />
-      <Create />
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/create">Create Post</Link>
+        <Link to="/profile">Profile</Link>
+        <Link to="/about">About</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Hero />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+
       <Footer />
-    </div>
+    </>
   );
 }
 
