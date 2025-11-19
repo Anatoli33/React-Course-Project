@@ -48,6 +48,8 @@ nav a:hover {
 
 /* === HERO === */
 .hero {
+  position: relative;
+  top: -20px; /* компенсира padding на header, ако е sticky */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -57,7 +59,9 @@ nav a:hover {
   background: linear-gradient(to bottom right, var(--primary), var(--light-purple));
   color: white;
   padding: 0 20px;
+  margin: 0;
 }
+
 
 .hero h2 {
   font-size: 3rem;
