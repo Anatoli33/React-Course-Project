@@ -6,6 +6,7 @@ import Footer from './Footer.jsx';
 import About from './About';
 import Create from './Create.jsx';
 import Profile from './Profile.jsx';
+import Register from './Register';
 
 function App() {
 const postList = [
@@ -39,6 +40,7 @@ const postList = [
         <Link to="/create">Create Post</Link>
         <Link to="/profile">Profile</Link>
         <Link to="/about">About</Link>
+        <Link to="/register">Register</Link>
       </nav>
 
       <Routes>
@@ -47,6 +49,7 @@ const postList = [
         <Route path="/create" element={<Create />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/about" element={<About />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
 
       <Footer />

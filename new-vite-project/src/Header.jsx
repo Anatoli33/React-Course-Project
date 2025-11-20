@@ -11,6 +11,7 @@ const Header = () => {
         <Link to="/create">Създай пост</Link>
         <Link to="/profile">Профил</Link>
         <Link to="/about">За нас</Link>
+        <Link to="/register">Регистрация</Link>
       </nav>
     </header>
   );
