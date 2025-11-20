@@ -341,7 +341,111 @@ footer {
   font-size: 0.9rem;
   border-top: 1px solid var(--border);
   margin-top: 80px;
+
 }
+/* === REGISTER FORM === */
+.register-wrapper {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 25px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.register-form h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  color: var(--primary);
+}
+
+.register-form .form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.register-form label {
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.register-form input,
+.register-form select {
+  padding: 12px 15px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+  background: white;
+}
+
+.register-form input:focus,
+.register-form select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 5px rgba(73, 9, 105, 0.3);
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox-group label a {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.register-form .btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.register-form .btn:hover {
+  background: var(--light-purple);
+  transform: scale(1.05);
+}
+
+.register-form .btn:active {
+  transform: scale(0.95);
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.95rem;
+}
+
+.login-link a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* small screens */
+@media (max-width: 600px) {
+  .register-wrapper {
+    margin: 50px 15px;
+    padding: 20px;
+  }
+}
+
 
 /* === RESPONSIVE === */
 @media (max-width: 600px) {
