@@ -29,9 +29,13 @@ const Post = ({ post }) => {
       <div className="post-text">{post.text}</div>
       <div className="hashtags">{post.hashtags.join(" ")}</div>
 
-      <button className="like-button" onClick={likeHandler}>
+      <button className="post-button" onClick={likeHandler}>
         ❤️ Like {likes > 0 && `${likes}`}
       </button>
+      <button className="post-button">✏️ Edit</button>
+      <button className="post-button">🗑️ Delete</button>
+      <button className="post-button">🔁 Repost</button>
+
     </div>
   );
 };
