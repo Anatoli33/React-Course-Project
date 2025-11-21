@@ -32,8 +32,9 @@ const Post = ({ post }) => {
       <button className="post-button" onClick={likeHandler}>
         ❤️ Like {likes > 0 && `${likes}`}
       </button>
-      <button className="post-button">✏️ Edit</button>
-      <button className="post-button">🗑️ Delete</button>
+      <button className="post-button">💬 Comment</button>
+      {/* <button className="post-button">✏️ Edit</button>
+      <button className="post-button">🗑️ Delete</button> */}
       <button className="post-button">🔁 Repost</button>
 
     </div>
