@@ -49,8 +49,8 @@ nav a:hover {
 /* === HERO === */
 .hero {
   position: relative;
-  top: -20px; 
-  min-height: 100vh;
+
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -341,7 +341,6 @@ footer {
   color: gray;
   font-size: 0.9rem;
   border-top: 1px solid var(--border);
-  margin-top: 80px;
 
 }
 /* === REGISTER FORM === */
