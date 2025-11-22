@@ -20,15 +20,15 @@ const Post = ({ post }) => {
   };
 
   return (
-    
-    <Link to={`/details`} style={{ textDecoration: "none", color: "inherit" }}>
     <div className="post">
+          <Link to={`/details`} style={{ textDecoration: "none", color: "inherit" }}>
       <div className="post-header">
         <span className="post-user">{post.user}</span>
         <span className="post-time">{post.time}</span>
       </div>
       <div className="post-text">{post.text}</div>
       <div className="hashtags">{post.hashtags.join(" ")}</div>
+            </Link>
 
       <button className="post-button" onClick={likeHandler}>
         ❤️ Like {likes > 0 && `${likes}`}
@@ -38,7 +38,6 @@ const Post = ({ post }) => {
       <button className="post-button">🗑️ Delete</button> */}
       <button className="post-button">🔁 Repost</button>
       </div>
-      </Link>
   );
 };
 
