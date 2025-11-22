@@ -438,6 +438,57 @@ footer {
 .login-link a:hover {
   text-decoration: underline;
 }
+/* === DETAILS PAGE SIMPLE === */
+.details-page {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 0 15px;
+}
+
+.details-title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.details-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.details-text {
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.details-hashtags {
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.details-stats {
+  display: flex;
+  gap: 20px;
+  font-weight: 600;
+}
+
+.details-stats span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 
 /* small screens */
 @media (max-width: 600px) {
