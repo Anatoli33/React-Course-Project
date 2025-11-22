@@ -11,8 +11,8 @@ const Header = () => {
         <Link to="/create">Създай пост</Link>
         <Link to="/profile">Профил</Link>
         <Link to="/about">За нас</Link>
-        <Link to="/register">Регистрация</Link>
-        <Link to="/login">Вход</Link>
+        {/* <Link to="/register">Регистрация</Link>
+        <Link to="/login">Вход</Link> */}
       </nav>
     </header>
   );

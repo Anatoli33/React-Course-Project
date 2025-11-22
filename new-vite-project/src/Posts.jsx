@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Posts = ({ posts }) => {
   return (
@@ -11,8 +12,6 @@ const Posts = ({ posts }) => {
     </section>
   );
 };
-
-// Single Post component (each post has its own like state)
 const Post = ({ post }) => {
   const [likes, setLikes] = useState(0);
 
@@ -21,6 +20,8 @@ const Post = ({ post }) => {
   };
 
   return (
+    
+    <Link to={`/details`} style={{ textDecoration: "none", color: "inherit" }}>
     <div className="post">
       <div className="post-header">
         <span className="post-user">{post.user}</span>
@@ -36,8 +37,8 @@ const Post = ({ post }) => {
       {/* <button className="post-button">✏️ Edit</button>
       <button className="post-button">🗑️ Delete</button> */}
       <button className="post-button">🔁 Repost</button>
-
-    </div>
+      </div>
+      </Link>
   );
 };
 
