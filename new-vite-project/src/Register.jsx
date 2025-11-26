@@ -1,8 +1,18 @@
 import React from "react";
 
 const Register = () => {
+
+    const eventFn = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    e.target.reset();
+    console.log(data);
+    
+  }
+  
   return (
-    <div className="register-wrapper">
+    <div className="register-wrapper" onSubmit={eventFn}>
       <form className="register-form" action="/register" method="POST">
         <h2>Регистрация в SportTalk</h2>
 
