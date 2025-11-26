@@ -1,12 +1,21 @@
-import React from "react";
-
 const Create = () => {
+
+  const actionFn = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    e.target.reset();
+    console.log(data);
+    
+    
+  }
   return (
     <>
       <div className="container">
         <h1>Create Sport Talk Post</h1>
 
-        <form>
+        <form onSubmit={actionFn}>
           <label>Title</label>
           <input
             type="text"
