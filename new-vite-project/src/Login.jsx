@@ -1,7 +1,17 @@
 const Login = () => {
+
+  const eventFn = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    e.target.reset();
+    console.log(data);
+    
+  }
+
     return(
     <div className="register-wrapper">
-    <form className="register-form" action="/login" method="POST">
+    <form className="register-form" onSubmit={eventFn}>
       <h2>Вход в SportTalk</h2>
 
       <div className="form-group">
