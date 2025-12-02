@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase.js";
+import { useAuth } from "./AuthContext";
+
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -27,6 +29,9 @@ const PostDetail = () => {
 
   if (!post) return <p>Loading post...</p>;
 
+  const { currentUser } = useAuth();
+
+
   return (
     <section className="post-detail-wrapper">
       <Link to="/posts" className="post-button">← Back to Posts</Link>
@@ -43,6 +48,7 @@ const PostDetail = () => {
           <div className="hashtags">{post.hashtags.join(" ")}</div>
         )}
 
+        {currentUser && (
         <div className="post-buttons">
           <button className="post-button" onClick={likeHandler}>
             ❤️ Like {likes > 0 && likes}
@@ -50,6 +56,7 @@ const PostDetail = () => {
           <button className="post-button">💬 Comment</button>
           <button className="post-button">🔁 Repost</button>
         </div>
+         )}
       </div>
     </section>
   );

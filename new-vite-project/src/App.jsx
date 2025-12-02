@@ -10,6 +10,7 @@ import Register from './Register';
 import Login from './Login';
 import Details from './Details';
 import { AuthProvider } from './AuthContext.jsx';
+import ProtectedRoute from './ProtectedRouter.jsx';
 import PostDetail from './PostDetails.jsx';
 
 function App() {
@@ -22,8 +23,22 @@ function App() {
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route path="/posts" element={<Posts/>} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/create"
+          element={
+            <ProtectedRoute>
+              <Create />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

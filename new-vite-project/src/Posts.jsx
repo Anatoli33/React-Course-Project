@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "./firebase.js";
+import { useAuth } from "./AuthContext.jsx";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -29,6 +30,7 @@ const Posts = () => {
 };
 
 const Post = ({ post }) => {
+  const { currentUser } = useAuth();
   const [likes, setLikes] = useState(0);
   const likeHandler = () => setLikes(likes + 1);
 
@@ -55,14 +57,15 @@ const Post = ({ post }) => {
         </div>
       </Link>
 
-      <div className="post-buttons">
-        <button className="post-button" onClick={likeHandler}>
-          ❤️ Like {likes > 0 && likes}
-        </button>
-        <button className="post-button">💬 Comment</button>
-        <button className="post-button">🔁 Repost</button>
-      </div>
-
+      {currentUser && (
+        <div className="post-buttons">
+          <button className="post-button" onClick={likeHandler}>
+            ❤️ Like {likes > 0 && likes}
+          </button>
+          <button className="post-button">💬 Comment</button>
+          <button className="post-button">🔁 Repost</button>
+        </div>
+      )}
     </div>
   );
 };
