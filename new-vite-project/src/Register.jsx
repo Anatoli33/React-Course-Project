@@ -1,20 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
+import { auth } from "./firebase.js";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const Register = () => {
+  const [error, setError] = useState("");
 
-    const eventFn = (e) => {
+  const eventFn = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    e.target.reset();
-    console.log(data);
-    
-  }
-  
+
+    const { username, email, password, confirmPassword } = data;
+
+    if (password !== confirmPassword) {
+      setError("Паролите не съвпадат!");
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await updateProfile(userCredential.user, {
+        displayName: username,
+      });
+
+      e.target.reset();
+      setError("");
+
+      alert("Успешна регистрация!");
+
+    } catch (err) {
+      if (err.code === "auth/email-already-in-use") {
+        setError("Имейлът вече е използван.");
+      } else {
+        setError("Възникна грешка при регистрацията.");
+      }
+    }
+  };
+
   return (
-    <div className="register-wrapper" onSubmit={eventFn}>
-      <form className="register-form" action="/register" method="POST">
+    <div className="register-wrapper">
+      <form className="register-form" onSubmit={eventFn}>
         <h2>Регистрация в SportTalk</h2>
+
+        {error && <p className="error-message">{error}</p>}
 
         <div className="form-group">
           <label htmlFor="username">Потребителско име</label>
