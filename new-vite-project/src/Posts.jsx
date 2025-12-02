@@ -30,29 +30,39 @@ const Posts = () => {
 
 const Post = ({ post }) => {
   const [likes, setLikes] = useState(0);
-
   const likeHandler = () => setLikes(likes + 1);
 
   return (
     <div className="post">
-      <Link to={`/details`} style={{ textDecoration: "none", color: "inherit" }}>
+
+      <Link to={`/details/${post.id}`} style={{ textDecoration: "none", color: "inherit" }}>
         <div className="post-header">
-          <span className="post-user">{post.user}</span>
+          <span className="post-user">@{post.user}</span>
           <br/>
-          <span className="post-time">{post.time}</span>
-          <br/>
-          <span className="post-time">{post.title}</span>
+          <span className="post-time">
+            {new Date(post.time).toLocaleString("bg-BG")}
+          </span>
         </div>
 
-        <div className="post-text">{post.text || post.content}</div>
-        <div className="hashtags">{post.hashtags?.join(" ")}</div>
+        <h4 className="post-title">{post.title}</h4>
+
+        <p className="post-text">{post.text || post.content}</p>
+
+        <div className="hashtags">
+          {post.hashtags?.map(tag => (
+            <span className="hashtag" key={tag}>#{tag}</span>
+          ))}
+        </div>
       </Link>
 
-      <button className="post-button" onClick={likeHandler}>
-        ❤️ Like {likes > 0 && likes}
-      </button>
-      <button className="post-button">💬 Comment</button>
-      <button className="post-button">🔁 Repost</button>
+      <div className="post-buttons">
+        <button className="post-button" onClick={likeHandler}>
+          ❤️ Like {likes > 0 && likes}
+        </button>
+        <button className="post-button">💬 Comment</button>
+        <button className="post-button">🔁 Repost</button>
+      </div>
+
     </div>
   );
 };

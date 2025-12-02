@@ -95,7 +95,6 @@ nav a:hover {
 .hero button:active {
   transform: scale(0.95);
 }
-
 /* === FEED === */
 .feed {
   max-width: 700px;
@@ -110,6 +109,7 @@ nav a:hover {
   margin-bottom: 40px;
 }
 
+/* === POST BOX === */
 .post {
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -125,7 +125,57 @@ nav a:hover {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
-/* ===POST BUTTONS === */
+/* === POST HEADER === */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.post-user {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--primary);
+}
+
+.post-time {
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
+
+/* === TITLE === */
+.post-title {
+  font-size: 1.3rem;
+  margin: 5px 0 10px 0;
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* === CONTENT === */
+.post-text {
+  margin-bottom: 12px;
+  line-height: 1.5;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+/* === HASHTAGS === */
+.hashtags {
+  margin-top: 8px;
+}
+
+.hashtag {
+  margin-right: 6px;
+  opacity: 0.7;
+  font-size: 0.9rem;
+  color: var(--primary);
+}
+
+/* === POST BUTTONS === */
+.post-buttons {
+  margin-top: 15px;
+}
+
 .post-button {
   background: #fff;
   color: var(--primary);
@@ -135,9 +185,10 @@ nav a:hover {
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 15px;
+  margin-top: 10px;
   margin-right: 6px;
   transition: all 0.3s ease;
+  display: inline-block;
 }
 
 .post-button:hover {
@@ -149,6 +200,7 @@ nav a:hover {
 .post-button:active {
   transform: scale(0.95);
 }
+
 
 /* === ABOUT === */
 .about {
