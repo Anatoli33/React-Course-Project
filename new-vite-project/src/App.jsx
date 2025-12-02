@@ -10,6 +10,7 @@ import Register from './Register';
 import Login from './Login';
 import Details from './Details';
 import { AuthProvider } from './AuthContext.jsx';
+import PostDetail from './PostDetails.jsx';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/details" element={<Details />} />
+        <Route path='/details/:id' element={<PostDetail/>} />
       </Routes>
       </AuthProvider>
       <Footer />
