@@ -9,11 +9,13 @@ import Profile from './Profile.jsx';
 import Register from './Register';
 import Login from './Login';
 import Details from './Details';
+import { AuthProvider } from './AuthContext.jsx';
 
 function App() {
 
   return (
     <>
+     <AuthProvider>
       <Header />
 
       <Routes>
@@ -26,7 +28,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/details" element={<Details />} />
       </Routes>
-
+      </AuthProvider>
       <Footer />
     </>
   );

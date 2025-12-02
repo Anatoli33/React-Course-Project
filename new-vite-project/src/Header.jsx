@@ -1,18 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom"; 
+import { useAuth } from "./AuthContext";
 
 const Header = () => {
+  const { currentUser, logout } = useAuth();
+
   return (
     <header>
       <h1>Sport Talk</h1>
       <nav>
         <Link to="/">Начало</Link>
-        <Link to="/Posts">Постове</Link>
-        <Link to="/create">Създай пост</Link>
-        <Link to="/profile">Профил</Link>
+        <Link to="/posts">Постове</Link>
+        {currentUser && <Link to="/create">Създай пост</Link>}
+        {currentUser && <Link to="/profile">Профил</Link>}
         <Link to="/about">За нас</Link>
-        <Link to="/register">Регистрация</Link>
-        <Link to="/login">Вход</Link>
+
+        {currentUser ? (
+          <>
+            <span onClick={logout} style={{ marginLeft: "20px", cursor: "pointer" }}>Изход</span>
+          </>
+        ) : (
+          <>
+            <Link to="/register">Регистрация</Link>
+            <Link to="/login">Вход</Link>
+          </>
+        )}
       </nav>
     </header>
   );
