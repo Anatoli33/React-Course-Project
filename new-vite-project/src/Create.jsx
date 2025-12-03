@@ -1,6 +1,7 @@
 import React from "react";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "./firebase.js";
+import { db, auth } from "./firebase.js";
+
 
 const Create = () => {
 
@@ -11,9 +12,13 @@ const Create = () => {
   const data = Object.fromEntries(formData);
 
   try {
+
+    const currentUser = auth.currentUser;
+
     const postsCollection = collection(db, "posts");
 
     const docRef = await addDoc(postsCollection, {
+      user: currentUser.displayName,
       title: data.title,
       content: data.content,
       imageUrl: data.imageUrl || "",
