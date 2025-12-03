@@ -70,7 +70,12 @@ const PostDetail = () => {
           </button>
           <button className="post-button">💬 Comment</button>
           <button className="post-button">🔁 Repost</button>
-          <button className="post-button" onClick={deleteHandler}>🗑️ Delete</button>
+          
+          {currentUser.displayName === post.user && (
+            <button className="post-button" onClick={deleteHandler}>
+              🗑️ Delete
+            </button>
+          )}
         </div>
          )}
       </div>
