@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "./firebase.js";
 import { useAuth } from "./AuthContext";
 
@@ -31,6 +31,21 @@ const PostDetail = () => {
 
   const { currentUser } = useAuth();
 
+  const deleteHandler = async () => {
+  const confirmed = window.confirm("Сигурен ли си, че искаш да изтриеш поста?");
+  if (!confirmed) return;
+
+  try {
+    await deleteDoc(doc(db, "posts", id));
+    alert("Постът е изтрит успешно!");
+    window.location.href = "/posts"; // redirect
+  } catch (err) {
+    console.error("Error deleting post:", err);
+    alert("Грешка при изтриването.");
+  }
+};
+
+
 
   return (
     <section className="post-detail-wrapper">
@@ -55,6 +70,7 @@ const PostDetail = () => {
           </button>
           <button className="post-button">💬 Comment</button>
           <button className="post-button">🔁 Repost</button>
+          <button className="post-button" onClick={deleteHandler}>🗑️ Delete</button>
         </div>
          )}
       </div>
