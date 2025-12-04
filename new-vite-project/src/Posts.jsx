@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, doc, updateDoc, increment, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "./firebase.js";
 import { useAuth } from "./AuthContext.jsx";
 
@@ -15,7 +15,7 @@ const Posts = () => {
       setPosts(data);
     });
 
-    return () => unsubscribe(); 
+    return () => unsubscribe();
   }, []);
 
   return (
@@ -31,8 +31,31 @@ const Posts = () => {
 
 const Post = ({ post }) => {
   const { currentUser } = useAuth();
-  const [likes, setLikes] = useState(0);
-  const likeHandler = () => setLikes(likes + 1);
+  const [likes, setLikes] = useState(post.likes || 0);
+
+  const hasLiked = post.likedBy?.includes(currentUser?.uid);
+
+  const likeHandler = async () => {
+
+    const postRef = doc(db, "posts", post.id);
+
+    if (!hasLiked) {
+      setLikes(likes + 1);
+
+      await updateDoc(postRef, {
+        likes: increment(1),
+        likedBy: arrayUnion(currentUser.uid)
+      });
+
+    } else {
+      setLikes(likes - 1);
+
+      await updateDoc(postRef, {
+        likes: increment(-1),
+        likedBy: arrayRemove(currentUser.uid)
+      });
+    }
+  };
 
   return (
     <div className="post">
@@ -40,7 +63,7 @@ const Post = ({ post }) => {
       <Link to={`/details/${post.id}`} style={{ textDecoration: "none", color: "inherit" }}>
         <div className="post-header">
           <span className="post-user">@{post.user}</span>
-          <br/>
+          <br />
           <span className="post-time">
             {new Date(post.time).toLocaleString("bg-BG")}
           </span>
@@ -71,7 +94,6 @@ const Post = ({ post }) => {
 };
 
 export default Posts;
-
 
    
    {/* <button className="post-button">✏️ Edit</button>
