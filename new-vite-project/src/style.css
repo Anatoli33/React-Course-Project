@@ -201,6 +201,15 @@ nav a:hover {
 .post-button:active {
   transform: scale(0.95);
 }
+/* === WHEN POST IS LIKED === */
+.post-button.liked {
+  background: var(--primary);      /* червен фон */
+  color: white;             /* бял текст */
+
+  transform: scale(1.05);   /* леко по-голям */
+}
+
+
 
 
 

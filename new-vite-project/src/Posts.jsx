@@ -82,8 +82,11 @@ const Post = ({ post }) => {
 
       {currentUser && (
         <div className="post-buttons">
-          <button className="post-button" onClick={likeHandler}>
-            ❤️ Like {likes > 0 && likes}
+          <button
+            className={`post-button ${hasLiked ? "liked" : ""}`}
+            onClick={likeHandler}
+          >
+            {hasLiked ? "💔 Unlike" : "❤️ Like"} {likes > 0 && likes}
           </button>
           <button className="post-button">💬 Comment</button>
           <button className="post-button">🔁 Repost</button>
