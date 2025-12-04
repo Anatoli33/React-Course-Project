@@ -97,7 +97,3 @@ const Post = ({ post }) => {
 };
 
 export default Posts;
-
-   
-   {/* <button className="post-button">✏️ Edit</button>
-      <button className="post-button">🗑️ Delete</button> */}

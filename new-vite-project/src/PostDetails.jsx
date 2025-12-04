@@ -72,9 +72,10 @@ const PostDetail = () => {
           <button className="post-button">🔁 Repost</button>
           
           {currentUser.displayName === post.user && (
-            <button className="post-button" onClick={deleteHandler}>
-              🗑️ Delete
-            </button>
+              <>
+                <button className="post-button" onClick={deleteHandler}>🗑️ Delete</button>
+                <Link to={`/edit/${id}`} className="post-button">✏️ Edit</Link>
+              </>
           )}
         </div>
          )}

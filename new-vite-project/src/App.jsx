@@ -12,6 +12,7 @@ import Details from './Details';
 import { AuthProvider } from './AuthContext.jsx';
 import ProtectedRoute from './ProtectedRouter.jsx';
 import PostDetail from './PostDetails.jsx';
+import Edit from './Edit.jsx';
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/details" element={<Details />} />
         <Route path='/details/:id' element={<PostDetail/>} />
+        <Route path="/edit/:id" element={<Edit />} />
       </Routes>
       </AuthProvider>
       <Footer />
