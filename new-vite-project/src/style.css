@@ -395,7 +395,62 @@ form button:active {
   font-size: 0.85rem;
   color: gray;
 }
+/* === COMMENTS === */
+.comments {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
+.comment {
+  background: #f0f0f0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: black;
+}
+
+.comment strong {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: var(--primary);
+}
+
+.comment p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.add-comment {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.add-comment textarea {
+  width: 80%;
+  padding: 6px 8px;
+  margin: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--primary);
+  resize: none;
+  font-size: 0.95rem;
+}
+
+.add-comment button {
+  align-self: baseline;
+  padding: 6px 12px;
+  margin-left: 10px;
+  border-radius: 6px;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
 /* === FOOTER === */
 footer {
   text-align: center;
