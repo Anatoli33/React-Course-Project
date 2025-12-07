@@ -9,7 +9,9 @@ import {
   updateDoc,
   increment,
   arrayUnion,
-  arrayRemove
+  arrayRemove,
+  addDoc,
+  serverTimestamp
 } from "firebase/firestore";
 import { db } from "./firebase.js";
 import { useAuth } from "./AuthContext.jsx";
@@ -64,6 +66,28 @@ const Post = ({ post }) => {
     }
   };
 
+  const repostHandler = async () => {
+    if (!currentUser) return alert("Моля, влезте, за да споделите този пост!");
+
+    try {
+      const postsCollection = collection(db, "posts");
+      await addDoc(postsCollection, {
+        user: currentUser.displayName || currentUser.email,
+        userId: currentUser.uid,
+        title: "Repost: " + (post.title || ""),
+        content: post.content || post.text || "",
+        hashtags: post.hashtags || [],
+        likes: 0,
+        likedBy: [],
+        createdAt: serverTimestamp()
+      });
+      alert("Постът е успешно споделен!");
+    } catch (err) {
+      console.error("Грешка при Repost:", err);
+      alert("Неуспешно споделяне на поста.");
+    }
+  };
+
   return (
     <div className="post">
       <Link to={`/details/${post.id}`} style={{ textDecoration: "none", color: "inherit" }}>
@@ -96,7 +120,9 @@ const Post = ({ post }) => {
             {hasLiked ? "💔 Unlike" : "❤️ Like"} {likes > 0 && likes}
           </button>
           <button className="post-button">💬 Comment</button>
-          <button className="post-button">🔁 Repost</button>
+          <button className="post-button" onClick={repostHandler}>
+            🔁 Repost
+          </button>
         </div>
       )}
     </div>
