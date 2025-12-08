@@ -12,7 +12,6 @@ const Header = () => {
         <Link to="/">Начало</Link>
         <Link to="/posts">Постове</Link>
         <Link to="/polls">Анкети</Link>
-        {currentUser && <Link to="/create">Създай пост</Link>}
         {currentUser && <Link to="/profile">Профил</Link>}
         <Link to="/about">За нас</Link>
 

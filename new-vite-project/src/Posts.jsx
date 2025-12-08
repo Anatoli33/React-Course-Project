@@ -18,6 +18,7 @@ import { useAuth } from "./AuthContext.jsx";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
@@ -33,6 +34,14 @@ const Posts = () => {
   return (
     <section id="feed" className="feed">
       <h3 className="feed-title">Последни публикации</h3>
+      {currentUser && (
+        <Link to="/create">
+          <button className="post-button" style={{margin: "20px"}}>
+            ➕ Създай пост
+          </button>
+        </Link>
+      )}
+
       {posts.length === 0 && <p>Няма публикувани постове</p>}
       {posts.map((post) => (
         <Post key={post.id} post={post} />
