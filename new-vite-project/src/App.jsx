@@ -13,6 +13,8 @@ import { AuthProvider } from './AuthContext.jsx';
 import ProtectedRoute from './ProtectedRouter.jsx';
 import PostDetail from './PostDetails.jsx';
 import Edit from './Edit.jsx';
+import CreatePollPage from './polls/CreatePollsPage.jsx';
+import PollsFeed from './polls/PollsFeed.jsx';
 
 function App() {
 
@@ -46,6 +48,9 @@ function App() {
         <Route path="/details" element={<Details />} />
         <Route path='/details/:id' element={<PostDetail/>} />
         <Route path="/edit/:id" element={<Edit />} />
+        <Route path="/polls" element={<PollsFeed />} />
+        <Route path="/polls/create" element={<CreatePollPage />} />
+
       </Routes>
       </AuthProvider>
       <Footer />
