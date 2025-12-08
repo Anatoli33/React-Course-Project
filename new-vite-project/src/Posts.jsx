@@ -128,7 +128,9 @@ const Post = ({ post }) => {
           >
             {hasLiked ? "💔 Unlike" : "❤️ Like"} {likes > 0 && likes}
           </button>
+          <Link to={`/details/${post.id}`} style={{ textDecoration: "none", color: "inherit" }}>
           <button className="post-button">💬 Comment</button>
+          </Link>
           <button className="post-button" onClick={repostHandler}>
             🔁 Repost
           </button>

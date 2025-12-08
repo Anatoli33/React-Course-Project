@@ -36,7 +36,7 @@ const PollsFeed = () => {
       <h2>Polls</h2>
       {auth.currentUser && (
         <Link to="/polls/create">
-          <button className="create-poll-btn">Create Poll</button>
+          <button className="post-button" style={{marginBottom: "20px"}}>➕ Създай анкета</button>
         </Link>
       )}
 
