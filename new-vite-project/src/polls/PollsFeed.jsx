@@ -44,8 +44,8 @@ const PollsFeed = () => {
         const user = auth.currentUser;
         const voters = poll.voters || {};
         const rawVotes = poll.votes || {};
-        const votes = Object.values(rawVotes);   
         const options = Array.isArray(poll.options) ? poll.options : [];
+        const votes = options.map((_, index) => rawVotes[index] || 0);  
         const hasVoted = user ? voters[user.uid] : false;
         const totalVotes = votes.reduce((sum, v) => sum + (v || 0), 0);
 
