@@ -451,6 +451,77 @@ form button:active {
   border: none;
   cursor: pointer;
 }
+/* === POLLS === */
+.polls-container {
+  padding: 20px;
+  background-color: whitesmoke;
+}
+
+.poll-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: var(--card-bg);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.poll-question {
+  font-weight: bold;
+  color: var(--primary);
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.poll-option {
+  margin-top: 8px;
+}
+
+.poll-option button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--primary);
+  background-color: whitesmoke;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.poll-option button:hover:not(:disabled) {
+  background-color: var(--primary);
+  color: white;
+}
+
+.poll-option button:disabled {
+  background-color: var(--bg);
+  color: #999;
+  cursor: default;
+}
+
+.poll-option span {
+  margin-left: 10px;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.create-poll-btn {
+  margin-bottom: 15px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--primary);
+  background-color: white;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.create-poll-btn:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
 /* === FOOTER === */
 footer {
   text-align: center;

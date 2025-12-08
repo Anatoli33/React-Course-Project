@@ -9,13 +9,8 @@ const PollsFeed = () => {
   useEffect(() => {
     const q = query(collection(db, "polls"), orderBy("createdAt", "desc"));
     const unsub = onSnapshot(q, snapshot => {
-      const data = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setPolls(data);
+      setPolls(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
     });
-
     return () => unsub();
   }, []);
 
@@ -25,7 +20,6 @@ const PollsFeed = () => {
       alert("Please log in to vote!");
       return;
     }
-
     try {
       const pollRef = doc(db, "polls", pollId);
       await updateDoc(pollRef, {
@@ -38,10 +32,10 @@ const PollsFeed = () => {
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className="polls-container">
       <h2>Polls</h2>
       <Link to="/polls/create">
-        <button>Create Poll</button>
+        <button className="create-poll-btn">Create Poll</button>
       </Link>
 
       {polls.map(poll => {
@@ -53,19 +47,19 @@ const PollsFeed = () => {
         const totalVotes = votes.reduce((sum, v) => sum + (v || 0), 0);
 
         return (
-          <div key={poll.id} style={{ border: "1px solid #eee", padding: 15, marginBottom: 15 }}>
-            <h4>{poll.question || "No question"}</h4>
+          <div className="poll-card" key={poll.id}>
+            <div className="poll-question">{poll.question || "No question"}</div>
 
             {options.map((option, i) => {
               const count = votes[i] || 0;
               const pct = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
 
               return (
-                <div key={i} style={{ marginTop: 8 }}>
+                <div className="poll-option" key={i}>
                   <button disabled={hasVoted} onClick={() => vote(poll.id, i)}>
                     {option || `Option ${i + 1}`}
                   </button>
-                  {hasVoted && <span style={{ marginLeft: 10 }}>{count} votes ({pct}%)</span>}
+                  {hasVoted && <span>{count} votes ({pct}%)</span>}
                 </div>
               );
             })}
