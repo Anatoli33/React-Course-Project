@@ -34,14 +34,17 @@ const PollsFeed = () => {
   return (
     <div className="polls-container">
       <h2>Polls</h2>
-      <Link to="/polls/create">
-        <button className="create-poll-btn">Create Poll</button>
-      </Link>
+      {auth.currentUser && (
+        <Link to="/polls/create">
+          <button className="create-poll-btn">Create Poll</button>
+        </Link>
+      )}
 
       {polls.map(poll => {
         const user = auth.currentUser;
         const voters = poll.voters || {};
-        const votes = Array.isArray(poll.votes) ? poll.votes : [];
+        const rawVotes = poll.votes || {};
+        const votes = Object.values(rawVotes);   
         const options = Array.isArray(poll.options) ? poll.options : [];
         const hasVoted = user ? voters[user.uid] : false;
         const totalVotes = votes.reduce((sum, v) => sum + (v || 0), 0);
