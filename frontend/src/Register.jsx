@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { auth } from "./firebase.js";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const Register = () => {
   const [error, setError] = useState("");
+  const navigate = useNavigate(); 
 
   const eventFn = async (e) => {
     e.preventDefault();
@@ -18,20 +20,14 @@ const Register = () => {
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, {
         displayName: username,
       });
 
       e.target.reset();
       setError("");
-
-      alert("Успешна регистрация!");
-
+      navigate("/posts");
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
         setError("Имейлът вече е използван.");

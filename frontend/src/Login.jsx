@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase.js";
 
 const Login = () => {
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const eventFn = async (e) => {
     e.preventDefault();
@@ -15,8 +17,8 @@ const Login = () => {
     const { email, password } = data;
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      alert(`Успешен вход! Добре дошъл, ${userCredential.user.displayName || email}`);
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/posts"); 
     } catch (err) {
       setError("Грешна парола или имейл!");
     }
