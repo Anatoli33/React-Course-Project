@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { doc, getDoc, collection, query, where, orderBy, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 import { useAuth } from "./AuthContext";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { currentUser } = useAuth();
@@ -62,15 +63,16 @@ const Profile = () => {
         <h3>Твоите публикации</h3>
         {posts.length === 0 && <p>Нямаш публикации</p>}
         {posts.map(post => (
-          <div key={post.id} className="post">
-          <h4 className="post-title">{post.title}</h4>
-          <p className="post-text">{post.text || post.content}</p>
-            <span className="post-time">
-              {post.createdAt ? new Date(post.createdAt.toDate()).toLocaleString("bg-BG") : "—"}
-            </span>
-          </div>
+          <Link key={post.id} to={`/details/${post.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+            <div className="post">
+              <h4 className="post-title">{post.title}</h4>
+              <p className="post-text">{post.text || post.content}</p>
+              <span className="post-time">
+                {post.createdAt ? new Date(post.createdAt.toDate()).toLocaleString("bg-BG") : "—"}
+              </span>
+            </div>
+          </Link>
         ))}
-
       </div>
     </div>
   );
