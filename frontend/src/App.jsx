@@ -15,6 +15,7 @@ import PostDetail from './PostDetails.jsx';
 import Edit from './Edit.jsx';
 import CreatePollPage from './polls/CreatePollsPage.jsx';
 import PollsFeed from './polls/PollsFeed.jsx';
+import PoolDetails from './polls/PollDetails.jsx';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
         <Route path='/details/:id' element={<PostDetail/>} />
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/polls" element={<PollsFeed />} />
+        <Route path="/polls/:id" element={<PoolDetails />} />
         <Route path="/polls/create" element={<CreatePollPage />} />
 
       </Routes>
