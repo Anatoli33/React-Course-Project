@@ -521,6 +521,121 @@ form button:active {
   background-color: var(--primary);
   color: white;
 }
+.create-poll-wrapper {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 25px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  font-family: "Inter", sans-serif;
+}
+
+.create-poll-wrapper h2 {
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.create-poll-wrapper input {
+  width: 90%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+.create-poll-wrapper input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 5px rgba(73, 9, 105, 0.3);
+}
+
+.create-poll-wrapper button {
+  padding: 10px 18px;
+  margin-top: 10px;
+  border-radius: 25px;
+  border: 2px solid var(--primary);
+  background: #fff;
+  color: var(--primary);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.create-poll-wrapper button:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.create-poll-wrapper button:active {
+  transform: scale(0.95);
+}
+
+.add-option-btn {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.pool-details-wrapper {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+}
+
+.pool-details-wrapper h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: var(--primary);
+}
+
+.pool-option {
+  list-style: none;
+  margin-bottom: 16px;
+}
+
+.pool-option-title {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.pool-progress {
+  width: 100%;
+  height: 8px;
+  background: var(--bg);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.pool-progress-fill {
+  height: 100%;
+  background: var(--light-purple);
+}
+
+.pool-meta {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+}
 
 /* === FOOTER === */
 footer {

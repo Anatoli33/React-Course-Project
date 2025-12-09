@@ -69,7 +69,6 @@ const PostDetail = () => {
             <button className="post-button" onClick={likeHandler}>
               ❤️ Like {likes > 0 && likes}
             </button>
-            <button className="post-button">💬 Comment</button>
             <button className="post-button">🔁 Repost</button>
 
             {currentUser.displayName === post.user && (

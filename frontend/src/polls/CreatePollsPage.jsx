@@ -41,17 +41,18 @@ const CreatePollPage = () => {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Create Poll</h2>
-      <input placeholder="Question" value={question} onChange={e => setQuestion(e.target.value)} />
+<div className="create-poll-wrapper">
+  <h2>Create Poll</h2>
+  <input placeholder="Question" value={question} onChange={e => setQuestion(e.target.value)} />
 
-      {options.map((opt, i) => (
-        <input key={i} placeholder={`Option ${i + 1}`} value={opt} onChange={e => updateOption(i, e.target.value)} />
-      ))}
+  {options.map((opt, i) => (
+    <input key={i} placeholder={`Option ${i + 1}`} value={opt} onChange={e => updateOption(i, e.target.value)} />
+  ))}
 
-      <button onClick={addOption}>Add Option</button>
-      <button onClick={submitPoll} style={{ display: "block", marginTop: 10 }}>Create</button>
-    </div>
+  <button className="add-option-btn" onClick={addOption}>Add Option</button>
+  <button onClick={submitPoll}>Create</button>
+</div>
+
   );
 };
 
