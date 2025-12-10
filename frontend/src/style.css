@@ -61,7 +61,6 @@ nav a:hover {
   margin: 0;
 }
 
-
 .hero h2 {
   font-size: 3rem;
   margin-bottom: 20px;
@@ -95,6 +94,7 @@ nav a:hover {
 .hero button:active {
   transform: scale(0.95);
 }
+
 /* === FEED === */
 .feed {
   max-width: 700px;
@@ -143,7 +143,7 @@ nav a:hover {
   opacity: 0.6;
 }
 
-/* === TITLE === */
+/* === TITLE / CONTENT  === */
 .post-title {
   font-size: 1.3rem;
   margin: 5px 0 10px 0;
@@ -151,7 +151,6 @@ nav a:hover {
   font-weight: 600;
 }
 
-/* === CONTENT === */
 .post-text {
   margin-bottom: 12px;
   line-height: 1.5;
@@ -159,24 +158,19 @@ nav a:hover {
   font-size: 1rem;
 }
 
-/* === HASHTAGS === */
-.hashtags {
-  margin-top: 8px;
-}
-
-.hashtag {
-  margin-right: 6px;
-  opacity: 0.7;
-  font-size: 0.9rem;
-  color: var(--primary);
-}
 
 /* === POST BUTTONS === */
-.post-buttons {
+.post-buttons,
+.details-buttons {
   margin-top: 15px;
+  display: flex;
+  gap: 10px;
 }
 
-.post-button {
+.post-button,
+.details-button,
+.create-poll-btn,
+.add-option-btn {
   background: #fff;
   color: var(--primary);
   border: 2px solid var(--primary);
@@ -185,33 +179,31 @@ nav a:hover {
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
-  margin-right: 6px;
   transition: all 0.3s ease;
   display: inline-block;
   text-decoration: none;
 }
 
-.post-button:hover {
+.post-button:hover,
+.details-button:hover,
+.create-poll-btn:hover,
+.add-option-btn:hover {
   background: var(--primary);
   color: #fff;
   transform: scale(1.05);
 }
 
-.post-button:active {
+.post-button:active,
+.details-button:active {
   transform: scale(0.95);
 }
-/* === WHEN POST IS LIKED === */
+
+/* === LIKED BUTTON === */
 .post-button.liked {
-  background: var(--primary);      /* червен фон */
-  color: white;             /* бял текст */
-
-  transform: scale(1.05);   /* леко по-голям */
+  background: var(--primary);
+  color: white;
+  transform: scale(1.05);
 }
-
-
-
-
 
 /* === ABOUT === */
 .about {
@@ -268,36 +260,47 @@ nav a:hover {
 }
 
 /* === CREATE FORM === */
-.container {
+.container,
+.create-poll-wrapper,
+.register-wrapper,
+.profile-container {
   max-width: 600px;
-  margin: 80px auto;
+  margin: 50px auto;
   padding: 20px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  font-family: "Inter", sans-serif;
 }
 
-.container h1 {
+.container h1,
+.create-poll-wrapper h2,
+.register-form h2 {
   text-align: center;
-  font-size: 2rem;
   color: var(--primary);
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
-form {
+form,
+.register-form .form-group,
+.add-comment {
   display: flex;
   flex-direction: column;
 }
 
-form label {
+form label,
+.register-form label {
   font-weight: 600;
   margin-bottom: 8px;
   color: var(--primary);
 }
 
 form input,
-form textarea {
+form textarea,
+.register-form input,
+.register-form select,
+.create-poll-wrapper input {
   padding: 12px 15px;
   margin-bottom: 20px;
   border: 1px solid var(--border);
@@ -308,7 +311,10 @@ form textarea {
 }
 
 form input:focus,
-form textarea:focus {
+form textarea:focus,
+.register-form input:focus,
+.register-form select:focus,
+.create-poll-wrapper input:focus {
   border-color: var(--primary);
   box-shadow: 0 0 5px rgba(73, 9, 105, 0.3);
 }
@@ -318,34 +324,39 @@ form textarea {
   min-height: 120px;
 }
 
-form button {
-  background: var(--primary);
-  color: white;
-  border: none;
+form button,
+.register-form .btn,
+.create-poll-wrapper button,
+.add-option-btn,
+.create-poll-btn {
   padding: 12px;
   font-size: 1rem;
   font-weight: 600;
   border-radius: 25px;
+  border: 2px solid var(--primary);
+  background: #fff;
+  color: var(--primary);
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
-form button:hover {
-  background: var(--light-purple);
+form button:hover,
+.register-form .btn:hover,
+.create-poll-wrapper button:hover,
+.add-option-btn:hover,
+.create-poll-btn:hover {
+  background-color: var(--primary);
+  color: #fff;
   transform: scale(1.05);
 }
 
-form button:active {
+form button:active,
+.register-form .btn:active,
+.create-poll-wrapper button:active {
   transform: scale(0.95);
 }
 
 /* === PROFILE === */
-.profile-container {
-  max-width: 700px;
-  margin: 80px auto;
-  padding: 20px;
-}
-
 .profile-header {
   display: flex;
   align-items: center;
@@ -395,6 +406,7 @@ form button:active {
   font-size: 0.85rem;
   color: gray;
 }
+
 /* === COMMENTS === */
 .comments {
   margin-top: 15px;
@@ -423,13 +435,6 @@ form button:active {
   line-height: 1.4;
 }
 
-.add-comment {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
 .add-comment textarea {
   width: 80%;
   padding: 6px 8px;
@@ -440,17 +445,6 @@ form button:active {
   font-size: 0.95rem;
 }
 
-.add-comment button {
-  align-self: baseline;
-  padding: 6px 12px;
-  margin-left: 10px;
-  border-radius: 6px;
-  background: var(--primary);
-  color: white;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-}
 /* === POLLS === */
 .polls-container {
   padding: 20px;
@@ -505,84 +499,7 @@ form button:active {
   font-size: 13px;
 }
 
-.create-poll-btn {
-  margin-bottom: 15px;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--primary);
-  background-color: white;
-  color: var(--primary);
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.2s ease;
-}
-
-.create-poll-btn:hover {
-  background-color: var(--primary);
-  color: white;
-}
-.create-poll-wrapper {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 25px 20px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  font-family: "Inter", sans-serif;
-}
-
-.create-poll-wrapper h2 {
-  font-size: 1.8rem;
-  color: var(--primary);
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.create-poll-wrapper input {
-  width: 90%;
-  padding: 12px 15px;
-  margin-bottom: 15px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-size: 1rem;
-  outline: none;
-  transition: 0.3s;
-}
-
-.create-poll-wrapper input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 5px rgba(73, 9, 105, 0.3);
-}
-
-.create-poll-wrapper button {
-  padding: 10px 18px;
-  margin-top: 10px;
-  border-radius: 25px;
-  border: 2px solid var(--primary);
-  background: #fff;
-  color: var(--primary);
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.create-poll-wrapper button:hover {
-  background: var(--primary);
-  color: #fff;
-  transform: scale(1.05);
-}
-
-.create-poll-wrapper button:active {
-  transform: scale(0.95);
-}
-
-.add-option-btn {
-  display: inline-block;
-  margin-right: 10px;
-}
-
+/* === POOL DETAILS === */
 .pool-details-wrapper {
   max-width: 600px;
   margin: 30px auto;
@@ -591,7 +508,6 @@ form button:active {
   border: 1px solid var(--border);
   border-radius: 12px;
   color: var(--text);
-  font-family: "Inter", sans-serif;
 }
 
 .pool-details-wrapper h2 {
@@ -644,132 +560,7 @@ footer {
   color: gray;
   font-size: 0.9rem;
   border-top: 1px solid var(--border);
-
 }
-/* === REGISTER FORM === */
-.register-wrapper {
-  max-width: 400px;
-  margin: 80px auto;
-  padding: 25px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.register-form h2 {
-  text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 25px;
-  color: var(--primary);
-}
-
-.register-form .form-group {
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.register-form label {
-  font-weight: 600;
-  color: var(--primary);
-  margin-bottom: 8px;
-}
-
-.register-form input,
-.register-form select {
-  padding: 12px 15px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-size: 1rem;
-  outline: none;
-  transition: 0.3s;
-  background: white;
-}
-
-.register-form input:focus,
-.register-form select:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 5px rgba(73, 9, 105, 0.3);
-}
-
-.checkbox-group {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.checkbox-group label a {
-  color: var(--primary);
-  font-weight: 500;
-}
-
-.register-form .btn {
-  width: 100%;
-  padding: 12px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.register-form .btn:hover {
-  background: var(--light-purple);
-  transform: scale(1.05);
-}
-
-.register-form .btn:active {
-  transform: scale(0.95);
-}
-
-.login-link {
-  text-align: center;
-  margin-top: 15px;
-  font-size: 0.95rem;
-}
-
-.login-link a {
-  color: var(--primary);
-  text-decoration: none;
-}
-
-.login-link a:hover {
-  text-decoration: underline;
-}
-/* === DETAILS PAGE BUTTONS === */
-.details-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.details-button {
-  background: #fff;
-  color: var(--primary);
-  border: 2px solid var(--primary);
-  padding: 10px 18px;
-  border-radius: 25px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.details-button:hover {
-  background: var(--primary);
-  color: #fff;
-  transform: scale(1.05);
-}
-
-.details-button:active {
-  transform: scale(0.95);
-}
-
-
 
 /* === RESPONSIVE === */
 @media (max-width: 600px) {
@@ -782,9 +573,10 @@ footer {
   }
 
   .container,
-  .profile-container {
+  .profile-container,
+  .register-wrapper {
     margin: 50px 15px;
-    padding: 15px;
+    padding: 15px 20px;
   }
 
   .profile-avatar {
@@ -805,10 +597,7 @@ footer {
     padding: 10px;
     font-size: 0.95rem;
   }
-  .register-wrapper {
-    margin: 50px 15px;
-    padding: 20px;
-  }
+
   header {
     flex-direction: column; 
     padding: 10px 15px;

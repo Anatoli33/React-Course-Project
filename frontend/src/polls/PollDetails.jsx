@@ -53,7 +53,7 @@ const PoolDetails = () => {
 
   return (
     <>
-      <Link to="/polls" className="post-button">← Обратно към анкети</Link>
+      <Link to="/polls" className="post-button" style={{ margin: "10px"}}>← Обратно към анкети</Link>
       <div className="pool-details-wrapper">
         <h2>Въпрос: {pool.question}</h2>
 

@@ -98,9 +98,9 @@ const PostDetail = () => {
 
   return (
     <section className="post-detail-wrapper">
-      <Link to="/posts" className="post-button">← Обратно към постовете</Link>
+      <Link to="/posts" className="post-button" style={{margin: "10px"}}>← Обратно към постовете</Link>
 
-      <div className="post-detail-card">
+      <div className="post-detail-card" style={{margin: "10px"}}>
         <div className="post-header">
           <h2 className="post-title">{post.title}</h2>
           <span className="post-user">@{post.user}</span>

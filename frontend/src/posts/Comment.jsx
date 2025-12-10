@@ -40,7 +40,12 @@ const AddComment = ({ postId }) => {
         placeholder={currentUser ? "Напишете коментар..." : "Влезте, за да коментирате"}
         disabled={!currentUser}
       />
-      <button onClick={addComment} disabled={!text.trim() || !currentUser}>
+      <button
+        className="post-button"
+        style={{ maxWidth: "100px", marginLeft: "10px"}}
+        onClick={addComment}
+        disabled={!text.trim() || !currentUser}
+      >
         Добави
       </button>
     </div>
