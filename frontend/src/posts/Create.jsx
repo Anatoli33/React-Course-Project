@@ -1,8 +1,11 @@
 import React from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db, auth } from "../firebase.js";
+import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
+  const navigate = useNavigate();
+
   const actionFn = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -25,6 +28,7 @@ const Create = () => {
 
       alert("Постът е успешно създаден!");
       e.target.reset();
+      navigate("/posts");
 
     } catch (err) {
       console.error("Грешка при добавяне на пост:", err);
