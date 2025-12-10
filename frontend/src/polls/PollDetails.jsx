@@ -18,10 +18,10 @@ const PoolDetails = () => {
         if (docSnap.exists()) {
           setPool(docSnap.data());
         } else {
-          setError("This poll does not exist.");
+          setError("Тази анкета не съществува.");
         }
       } catch (err) {
-        setError("Error loading poll data.");
+        setError("Грешка при зареждането на анкетата.");
       } finally {
         setLoading(false);
       }
@@ -30,7 +30,7 @@ const PoolDetails = () => {
     fetchPoll();
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Зареждане...</p>;
   if (error) return <p className="error-message">{error}</p>;
 
   const totalVotes = pool.votes ? Object.values(pool.votes).reduce((sum, v) => sum + v, 0) : 0;
@@ -38,27 +38,27 @@ const PoolDetails = () => {
 
   return (
     <>
-      <Link to="/polls" className="post-button">← Back to Polls</Link>
+      <Link to="/polls" className="post-button">← Обратно към анкети</Link>
       <div className="pool-details-wrapper">
-        <h2>Question: {pool.question}</h2>
+        <h2>Въпрос: {pool.question}</h2>
 
-        <p><strong>Options and Votes:</strong></p>
+        <p><strong>Опции и гласове:</strong></p>
         <ul>
           {pool.options.map((option, index) => {
             const votes = pool.votes?.[index] || 0;
             const pct = totalVotes === 0 ? 0 : Math.round((votes / totalVotes) * 100);
             return (
               <li key={index}>
-                {option} — {votes} votes ({pct}%)
+                {option} — {votes} гласа ({pct}%)
               </li>
             );
           })}
         </ul>
 
-        <p><strong>Number of Voters:</strong> {numVoters}</p>
+        <p><strong>Брой гласували:</strong> {numVoters}</p>
         <p>
-          <strong>Created At:</strong>{" "}
-          {pool.createdAt?.toDate ? pool.createdAt.toDate().toLocaleDateString() : "No date"}
+          <strong>Създадена на:</strong>{" "}
+          {pool.createdAt?.toDate ? pool.createdAt.toDate().toLocaleDateString() : "Няма дата"}
         </p>
       </div>
     </>

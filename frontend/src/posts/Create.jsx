@@ -27,25 +27,31 @@ const Create = () => {
       e.target.reset();
 
     } catch (err) {
-      console.error("Error adding post:", err);
+      console.error("Грешка при добавяне на пост:", err);
       alert("Грешка при добавяне на пост.");
     }
   };
 
   return (
     <div className="container">
-      <h1>Create Sport Talk Post</h1>
+      <h1>Създай публикация в Sport Talk</h1>
       <form onSubmit={actionFn}>
-        <label>Title</label>
-        <input type="text" name="title" placeholder="Enter post title" required />
+        <label>Заглавие</label>
+        <input 
+          type="text" 
+          name="title" 
+          placeholder="Въведете заглавие на поста" 
+          required 
+        />
 
-        <label>Content</label>
-        <textarea name="content" placeholder="Write your post content here..." required></textarea>
+        <label>Съдържание</label>
+        <textarea 
+          name="content" 
+          placeholder="Напишете съдържанието на поста тук..." 
+          required
+        ></textarea>
 
-        <label>Image URL (optional)</label>
-        <input type="text" name="imageUrl" placeholder="https://example.com/image.jpg" />
-
-        <button type="submit">Create Post</button>
+        <button type="submit">Създай пост</button>
       </form>
     </div>
   );

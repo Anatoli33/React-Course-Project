@@ -25,13 +25,13 @@ const CreatePollPage = () => {
   const submitPoll = async () => {
     const user = auth.currentUser;
     if (!user) {
-      alert("Please log in to create a poll!");
+      alert("Моля, влезте в акаунта си, за да създадете анкета!");
       return;
     }
 
     const cleanOptions = options.map(o => o.trim()).filter(o => o !== "");
     if (!question.trim() || cleanOptions.length < 2) {
-      alert("Please enter a question and at least 2 options");
+      alert("Моля, въведете въпрос и поне 2 опции.");
       return;
     }
 
@@ -49,16 +49,16 @@ const CreatePollPage = () => {
       setOptions(["", ""]);
       navigate("/polls");
     } catch (err) {
-      console.error("Error creating poll:", err);
-      alert("Failed to create poll");
+      console.error("Грешка при създаване на анкета:", err);
+      alert("Неуспешно създаване на анкета.");
     }
   };
 
   return (
     <div className="create-poll-wrapper">
-      <h2>Create a Poll</h2>
+      <h2>Създай анкета</h2>
       <input 
-        placeholder="Question" 
+        placeholder="Въпрос" 
         value={question} 
         onChange={e => setQuestion(e.target.value)} 
       />
@@ -66,7 +66,7 @@ const CreatePollPage = () => {
       {options.map((opt, i) => (
         <div key={i} className="option-input">
           <input 
-            placeholder={`Option ${i + 1}`} 
+            placeholder={`Опция ${i + 1}`} 
             value={opt} 
             onChange={e => updateOption(i, e.target.value)} 
           />
@@ -76,8 +76,8 @@ const CreatePollPage = () => {
         </div>
       ))}
 
-      <button className="add-option-btn" onClick={addOption}>➕ Add Option</button>
-      <button className="submit-btn" onClick={submitPoll}>Create Poll</button>
+      <button className="add-option-btn" onClick={addOption}>➕ Добави опция</button>
+      <button className="submit-btn" onClick={submitPoll}>Създай анкета</button>
     </div>
   );
 };

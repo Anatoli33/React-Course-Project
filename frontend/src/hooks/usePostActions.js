@@ -45,8 +45,6 @@ const usePostActions = (post, currentUser) => {
       });
 
       alert("Постът е успешно споделен!");
-      
-      // Navigate to the new post immediately
       navigate(`/details/${newPostRef.id}`);
     } catch (err) {
       console.error("Грешка при Repost:", err);

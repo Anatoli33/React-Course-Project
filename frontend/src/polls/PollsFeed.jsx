@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { collection, query, orderBy, onSnapshot, doc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../firebase";
@@ -18,7 +18,7 @@ const PollsFeed = () => {
 
   const vote = async (pollId, optionIndex) => {
     if (!currentUser) {
-      alert("Please log in to vote!");
+      alert("Моля, влезте в акаунта си, за да гласувате!");
       return;
     }
 
@@ -31,10 +31,10 @@ const PollsFeed = () => {
 
   return (
     <div className="polls-container">
-      <h2>Polls</h2>
+      <h2>Анкети</h2>
       {currentUser && (
         <Link to="/polls/create">
-          <button className="post-button">➕ Create Poll</button>
+          <button className="post-button">➕ Създай анкета</button>
         </Link>
       )}
 
@@ -54,7 +54,7 @@ const PollsFeed = () => {
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <div className="poll-card">
-              <div className="poll-question">{poll.question || "No question"}</div>
+              <div className="poll-question">{poll.question || "Няма въпрос"}</div>
 
               {options.map((option, i) => {
                 const count = votes[i] || 0;
@@ -69,9 +69,9 @@ const PollsFeed = () => {
                         vote(poll.id, i);
                       }}
                     >
-                      {option || `Option ${i + 1}`}
+                      {option || `Опция ${i + 1}`}
                     </button>
-                    {hasVoted && <span>{count} votes ({pct}%)</span>}
+                    {hasVoted && <span>{count} гласа ({pct}%)</span>}
                   </div>
                 );
               })}

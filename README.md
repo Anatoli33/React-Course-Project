@@ -70,3 +70,47 @@ The project emphasizes user interactivity, content sharing, and a clean, respons
 
 ## Project Architecture
 
+The project follows a **component-based architecture** typical for React applications, with Firebase as the backend for data storage and authentication.
+
+### Frontend (React + Vite)
+- **Pages / Views**: Organized as separate components under `/src/pages` or `/src/components`.
+  - `Posts` – displays all posts feed.
+  - `PostDetail` – single post with likes, comments, and repost functionality.
+  - `Create` – form to create a new post.
+  - `Edit` – form to edit an existing post.
+  - `PollsFeed` – displays all polls.
+  - `PoolDetails` – single poll view with results.
+  - `CreatePollPage` – form to create a new poll.
+- **Components**: Reusable UI components:
+  - `Post` – individual post in feed.
+  - `AddComment` – add comment form.
+  - `CommentsList` – list of comments.
+- **Hooks**: Custom hooks like `usePostActions` to manage post interactions (like, repost).
+- **Routing**: Managed by **React Router v6** with protected routes for authenticated actions.
+
+### Backend (Firebase)
+- **Authentication**:
+  - Firebase Auth handles login, registration, and user sessions.
+  - `AuthContext` provides global access to authentication state.
+- **Firestore Database**:
+  - `posts` collection:
+    - Each post stores title, content, author, likes, likedBy array, hashtags, timestamps.
+    - `comments` subcollection for post comments.
+  - `polls` collection:
+    - Each poll stores question, options, votes, voters, creator, and timestamp.
+- **Realtime Updates**:
+  - Firestore `onSnapshot` used for posts, comments, and polls to reflect changes in real-time.
+
+### Data Flow
+1. **User Action**: User interacts with the UI (create post, like, comment, vote).
+2. **Firestore Update**: Frontend updates Firestore using `addDoc`, `updateDoc`, or `deleteDoc`.
+3. **Realtime Listener**: Components using `onSnapshot` automatically update state with new data.
+4. **Render**: React re-renders UI components to display updated data.
+
+### State Management
+- Local component state: `useState`, `useEffect`.
+- Global state: `AuthContext` for authentication.
+- Derived state: Calculations for likes count, poll percentages, and vote eligibility done inside components.
+
+---
+

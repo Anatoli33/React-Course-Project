@@ -19,17 +19,17 @@ const Posts = () => {
 
   return (
     <section id="feed" className="feed">
-      <h3 className="feed-title">Latest Posts</h3>
+      <h3 className="feed-title">Последни публикации</h3>
 
       {currentUser && (
         <Link to="/create">
           <button className="post-button" style={{ margin: "20px" }}>
-            ➕ Create Post
+            ➕ Създай пост
           </button>
         </Link>
       )}
 
-      {posts.length === 0 && <p>No posts yet.</p>}
+      {posts.length === 0 && <p>Все още няма публикувани постове.</p>}
       
       {posts.map(post => (
         <Post key={post.id} post={post} currentUser={currentUser} />
@@ -45,10 +45,10 @@ const Post = ({ post, currentUser }) => {
     <div className="post">
       <Link to={`/details/${post.id}`} style={{ textDecoration: "none", color: "inherit" }}>
         <div className="post-header">
-          <span className="post-user">@{post.user || "Unknown"}</span>
+          <span className="post-user">@{post.user || "Неизвестен"}</span>
           <br />
           <span className="post-time">
-            {post.createdAt ? new Date(post.createdAt.toDate()).toLocaleString("en-US") : "—"}
+            {post.createdAt ? new Date(post.createdAt.toDate()).toLocaleString("bg-BG") : "—"}
           </span>
         </div>
 
@@ -65,13 +65,13 @@ const Post = ({ post, currentUser }) => {
       {currentUser && (
         <div className="post-buttons">
           <button className={`post-button ${hasLiked ? "liked" : ""}`} onClick={likePost}>
-            {hasLiked ? "💔 Unlike" : "❤️ Like"} {likes > 0 && likes}
+            {hasLiked ? "💔 Не харесай" : "❤️ Харесай"} {likes > 0 && likes}
           </button>
           <Link to={`/details/${post.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-            <button className="post-button">💬 Comment</button>
+            <button className="post-button">💬 Коментари</button>
           </Link>
           <button className="post-button" onClick={repostPost}>
-            🔁 Repost
+            🔁 Сподели
           </button>
         </div>
       )}

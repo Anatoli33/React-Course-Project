@@ -25,7 +25,7 @@ const PostDetail = () => {
         setLikes(data.likes || 0);
         setHasLiked(data.likedBy?.includes(currentUser?.uid));
       } else {
-        console.log("No such post!");
+        console.log("Постът не съществува!");
       }
     };
 
@@ -34,7 +34,7 @@ const PostDetail = () => {
 
   const likeHandler = async () => {
     if (!currentUser) {
-      alert("Please log in to like this post!");
+      alert("Моля, влезте в профила си, за да харесате поста!");
       return;
     }
 
@@ -59,7 +59,7 @@ const PostDetail = () => {
 
   const repostHandler = async () => {
     if (!currentUser) {
-      alert("Please log in to repost this post!");
+      alert("Моля, влезте в профила си, за да споделите поста!");
       return;
     }
 
@@ -67,45 +67,45 @@ const PostDetail = () => {
       await addDoc(collection(db, "posts"), {
         user: currentUser.displayName || currentUser.email,
         userId: currentUser.uid,
-        title: "Repost: " + (post.title || ""),
+        title: "Споделен пост: " + (post.title || ""),
         content: post.content || post.text || "",
         hashtags: post.hashtags || [],
         likes: 0,
         likedBy: [],
         createdAt: serverTimestamp(),
       });
-      alert("Post shared successfully!");
+      alert("Постът е споделен успешно!");
     } catch (err) {
-      console.error("Error reposting:", err);
-      alert("Failed to share the post.");
+      console.error("Грешка при споделяне:", err);
+      alert("Неуспешно споделяне на поста.");
     }
   };
 
   const deleteHandler = async () => {
-    if (!window.confirm("Are you sure you want to delete this post?")) return;
+    if (!window.confirm("Сигурни ли сте, че искате да изтриете този пост?")) return;
 
     try {
       await deleteDoc(doc(db, "posts", id));
-      alert("Post deleted successfully!");
+      alert("Постът е изтрит успешно!");
       window.location.href = "/posts";
     } catch (err) {
-      console.error("Error deleting post:", err);
-      alert("Failed to delete the post.");
+      console.error("Грешка при изтриване на пост:", err);
+      alert("Неуспешно изтриване на поста.");
     }
   };
 
-  if (!post) return <p>Loading post...</p>;
+  if (!post) return <p>Зареждане на поста...</p>;
 
   return (
     <section className="post-detail-wrapper">
-      <Link to="/posts" className="post-button">← Back to Posts</Link>
+      <Link to="/posts" className="post-button">← Обратно към постовете</Link>
 
       <div className="post-detail-card">
         <div className="post-header">
           <h2 className="post-title">{post.title}</h2>
           <span className="post-user">@{post.user}</span>
           <span className="post-time">
-            {post.createdAt?.toDate ? post.createdAt.toDate().toLocaleString("en-US") : "—"}
+            {post.createdAt?.toDate ? post.createdAt.toDate().toLocaleString("bg-BG") : "—"}
           </span>
         </div>
 
@@ -116,29 +116,29 @@ const PostDetail = () => {
         {currentUser && (
           <div className="post-buttons">
             <button className={`post-button ${hasLiked ? "liked" : ""}`} onClick={likeHandler}>
-              {hasLiked ? "💔 Unlike" : "❤️ Like"} {likes > 0 && likes}
+              {hasLiked ? "💔 Не харесвай" : "❤️ Харесай"} {likes > 0 && likes}
             </button>
 
             <button className="post-button" onClick={repostHandler}>
-              🔁 Repost
+              🔁 Сподели
             </button>
 
             {currentUser.displayName === post.user && (
               <>
-                <button className="post-button" onClick={deleteHandler}>🗑️ Delete</button>
-                <Link to={`/edit/${id}`} className="post-button">✏️ Edit</Link>
+                <button className="post-button" onClick={deleteHandler}>🗑️ Изтрий</button>
+                <Link to={`/edit/${id}`} className="post-button">✏️ Редактирай</Link>
               </>
             )}
           </div>
         )}
 
         <div className="comments-section">
-          <h3>Comments</h3>
+          <h3>Коментари</h3>
           <CommentsList postId={id} />
           {currentUser ? (
             <AddComment postId={id} />
           ) : (
-            <p>Only registered users can comment.</p>
+            <p>Само регистрирани потребители могат да коментират.</p>
           )}
         </div>
       </div>

@@ -16,7 +16,7 @@ const Edit = () => {
       if (snap.exists()) {
         setPost(snap.data());
       } else {
-        alert("Post does not exist.");
+        alert("Постът не съществува.");
         navigate("/posts");
       }
     };
@@ -39,22 +39,22 @@ const Edit = () => {
         imageUrl: data.imageUrl || "",
       });
 
-      alert("Post updated successfully!");
+      alert("Постът е редактиран успешно!");
       navigate(`/details/${id}`);
     } catch (err) {
-      console.error("Error updating post:", err);
-      alert("Failed to update post.");
+      console.error("Грешка при редактиране на пост:", err);
+      alert("Неуспешна редакция на поста.");
     }
   };
 
-  if (!post) return <p>Loading...</p>;
+  if (!post) return <p>Зареждане...</p>;
 
   return (
     <div className="container">
-      <h1>Edit Post</h1>
+      <h1>Редактиране на пост</h1>
 
       <form onSubmit={updateFn}>
-        <label>Title</label>
+        <label>Заглавие</label>
         <input
           type="text"
           name="title"
@@ -62,21 +62,14 @@ const Edit = () => {
           required
         />
 
-        <label>Content</label>
+        <label>Съдържание</label>
         <textarea
           name="content"
           defaultValue={post.content}
           required
         ></textarea>
 
-        <label>Image URL</label>
-        <input
-          type="text"
-          name="imageUrl"
-          defaultValue={post.imageUrl}
-        />
-
-        <button type="submit">Save Changes</button>
+        <button type="submit">Запази промените</button>
       </form>
     </div>
   );
