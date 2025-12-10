@@ -18,7 +18,7 @@ const PollsFeed = () => {
 
   const vote = async (pollId, optionIndex) => {
     if (!currentUser) {
-      alert("Моля влезте в акаунта си, за да гласувате!");
+      alert("Please log in to vote!");
       return;
     }
 
@@ -31,10 +31,10 @@ const PollsFeed = () => {
 
   return (
     <div className="polls-container">
-      <h2>Анкети</h2>
+      <h2>Polls</h2>
       {currentUser && (
         <Link to="/polls/create">
-          <button className="post-button">➕ Създай анкета</button>
+          <button className="post-button">➕ Create Poll</button>
         </Link>
       )}
 
@@ -54,17 +54,24 @@ const PollsFeed = () => {
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <div className="poll-card">
-              <div className="poll-question">{poll.question || "Няма въпрос"}</div>
+              <div className="poll-question">{poll.question || "No question"}</div>
 
               {options.map((option, i) => {
                 const count = votes[i] || 0;
                 const pct = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
                 return (
                   <div className="poll-option" key={i}>
-                    <button disabled={hasVoted} onClick={(e) => { e.preventDefault(); e.stopPropagation(); vote(poll.id, i); }}>
-                      {option || `Опция ${i + 1}`}
+                    <button
+                      disabled={hasVoted}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        vote(poll.id, i);
+                      }}
+                    >
+                      {option || `Option ${i + 1}`}
                     </button>
-                    {hasVoted && <span>{count} гласа ({pct}%)</span>}
+                    {hasVoted && <span>{count} votes ({pct}%)</span>}
                   </div>
                 );
               })}

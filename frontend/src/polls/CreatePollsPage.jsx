@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, auth } from "../firebase";
@@ -25,13 +25,13 @@ const CreatePollPage = () => {
   const submitPoll = async () => {
     const user = auth.currentUser;
     if (!user) {
-      alert("Моля, влезте в акаунта си, за да създадете анкета!");
+      alert("Please log in to create a poll!");
       return;
     }
 
     const cleanOptions = options.map(o => o.trim()).filter(o => o !== "");
     if (!question.trim() || cleanOptions.length < 2) {
-      alert("Въведете въпрос и поне 2 опции");
+      alert("Please enter a question and at least 2 options");
       return;
     }
 
@@ -49,16 +49,16 @@ const CreatePollPage = () => {
       setOptions(["", ""]);
       navigate("/polls");
     } catch (err) {
-      console.error("Грешка при създаване на анкета:", err);
-      alert("Неуспешно създаване на анкета");
+      console.error("Error creating poll:", err);
+      alert("Failed to create poll");
     }
   };
 
   return (
     <div className="create-poll-wrapper">
-      <h2>Създай анкета</h2>
+      <h2>Create a Poll</h2>
       <input 
-        placeholder="Въпрос" 
+        placeholder="Question" 
         value={question} 
         onChange={e => setQuestion(e.target.value)} 
       />
@@ -66,7 +66,7 @@ const CreatePollPage = () => {
       {options.map((opt, i) => (
         <div key={i} className="option-input">
           <input 
-            placeholder={`Опция ${i + 1}`} 
+            placeholder={`Option ${i + 1}`} 
             value={opt} 
             onChange={e => updateOption(i, e.target.value)} 
           />
@@ -76,8 +76,8 @@ const CreatePollPage = () => {
         </div>
       ))}
 
-      <button className="add-option-btn" onClick={addOption}>➕ Добави опция</button>
-      <button className="submit-btn" onClick={submitPoll}>Създай анкета</button>
+      <button className="add-option-btn" onClick={addOption}>➕ Add Option</button>
+      <button className="submit-btn" onClick={submitPoll}>Create Poll</button>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
@@ -18,10 +18,10 @@ const PoolDetails = () => {
         if (docSnap.exists()) {
           setPool(docSnap.data());
         } else {
-          setError("Такъв poll не съществува.");
+          setError("This poll does not exist.");
         }
       } catch (err) {
-        setError("Грешка при зареждането на данните.");
+        setError("Error loading poll data.");
       } finally {
         setLoading(false);
       }
@@ -30,7 +30,7 @@ const PoolDetails = () => {
     fetchPoll();
   }, [id]);
 
-  if (loading) return <p>Зареждане...</p>;
+  if (loading) return <p>Loading...</p>;
   if (error) return <p className="error-message">{error}</p>;
 
   const totalVotes = pool.votes ? Object.values(pool.votes).reduce((sum, v) => sum + v, 0) : 0;
@@ -40,25 +40,25 @@ const PoolDetails = () => {
     <>
       <Link to="/polls" className="post-button">← Back to Polls</Link>
       <div className="pool-details-wrapper">
-        <h2>Въпрос: {pool.question}</h2>
+        <h2>Question: {pool.question}</h2>
 
-        <p><strong>Опции и гласове:</strong></p>
+        <p><strong>Options and Votes:</strong></p>
         <ul>
           {pool.options.map((option, index) => {
             const votes = pool.votes?.[index] || 0;
             const pct = totalVotes === 0 ? 0 : Math.round((votes / totalVotes) * 100);
             return (
               <li key={index}>
-                {option} — {votes} гласа ({pct}%)
+                {option} — {votes} votes ({pct}%)
               </li>
             );
           })}
         </ul>
 
-        <p><strong>Брой гласували:</strong> {numVoters}</p>
+        <p><strong>Number of Voters:</strong> {numVoters}</p>
         <p>
-          <strong>Създаден на:</strong>{" "}
-          {pool.createdAt?.toDate ? pool.createdAt.toDate().toLocaleDateString() : "Няма дата"}
+          <strong>Created At:</strong>{" "}
+          {pool.createdAt?.toDate ? pool.createdAt.toDate().toLocaleDateString() : "No date"}
         </p>
       </div>
     </>
