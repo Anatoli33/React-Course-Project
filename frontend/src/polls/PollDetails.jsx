@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
 
@@ -39,6 +40,8 @@ const PoolDetails = () => {
   const numVoters = pool.voters ? Object.keys(pool.voters).length : 0;
 
   return (
+    <>
+    <Link to="/polls" className="post-button">← Back to Polls</Link>
     <div className="pool-details-wrapper">
       <h2>Въпрос: {pool.question}</h2>
 
@@ -61,6 +64,7 @@ const PoolDetails = () => {
         {pool.createdAt?.toDate ? pool.createdAt.toDate().toLocaleDateString() : "Няма дата"}
       </p>
     </div>
+    </>
   );
 };
 

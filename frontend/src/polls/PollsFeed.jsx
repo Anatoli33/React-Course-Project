@@ -8,8 +8,8 @@ const PollsFeed = () => {
 
   useEffect(() => {
     const q = query(collection(db, "polls"), orderBy("createdAt", "desc"));
-    const unsub = onSnapshot(q, snapshot => {
-      setPolls(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    const unsub = onSnapshot(q, (snapshot) => {
+      setPolls(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     });
     return () => unsub();
   }, []);
@@ -25,7 +25,7 @@ const PollsFeed = () => {
       const pollRef = doc(db, "polls", pollId);
       await updateDoc(pollRef, {
         [`votes.${optionIndex}`]: increment(1),
-        [`voters.${user.uid}`]: true
+        [`voters.${user.uid}`]: true,
       });
     } catch (err) {
       console.error("Неуспешно гласуване:", err);
@@ -38,23 +38,26 @@ const PollsFeed = () => {
 
       {auth.currentUser && (
         <Link to="/polls/create">
-          <button className="post-button" style={{ marginBottom: "20px" }}>➕ Създай анкета</button>
+          <button className="post-button" style={{ marginBottom: "20px" }}>
+            ➕ Създай анкета
+          </button>
         </Link>
       )}
 
-      {polls.map(poll => {
+      {polls.map((poll) => {
         const user = auth.currentUser;
         const voters = poll.voters || {};
         const rawVotes = poll.votes || {};
         const options = Array.isArray(poll.options) ? poll.options : [];
         const votes = options.map((_, index) => rawVotes[index] || 0);
+
         const hasVoted = user ? voters[user.uid] : false;
         const totalVotes = votes.reduce((sum, v) => sum + (v || 0), 0);
 
         return (
-          <Link 
-            to={`/polls/${poll.id}`} 
-            key={poll.id} 
+          <Link
+            to={`/polls/${poll.id}`}
+            key={poll.id}
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <div className="poll-card">
@@ -66,10 +69,23 @@ const PollsFeed = () => {
 
                 return (
                   <div className="poll-option" key={i}>
-                    <button disabled={hasVoted} onClick={() => vote(poll.id, i)}>
+                    <button
+                      disabled={hasVoted}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        vote(poll.id, i);
+                      }}
+                    >
                       {option || `Опция ${i + 1}`}
                     </button>
-                    {hasVoted && <span>{count} гласа ({pct}%)</span>}
+
+                    {hasVoted && (
+                      <span>
+                        {count} гласа ({pct}%)
+                      </span>
+                    )}
                   </div>
                 );
               })}

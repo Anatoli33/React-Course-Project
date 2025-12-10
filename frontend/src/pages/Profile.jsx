@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { doc, getDoc, collection, query, where, orderBy, getDocs } from "firebase/firestore";
-import { db } from "./firebase";
-import { useAuth } from "./AuthContext";
+import { db } from "../firebase";
+import { useAuth } from "../Auth/AuthContext";
 import { Link } from "react-router-dom";
 
 const Profile = () => {

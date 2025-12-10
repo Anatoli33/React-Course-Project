@@ -13,8 +13,8 @@ import {
   addDoc,
   serverTimestamp
 } from "firebase/firestore";
-import { db } from "./firebase.js";
-import { useAuth } from "./AuthContext.jsx";
+import { db } from "../firebase.js";
+import { useAuth } from "../Auth/AuthContext.jsx";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);

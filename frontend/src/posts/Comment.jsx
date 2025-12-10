@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "./firebase";
-import { useAuth } from "./AuthContext";
+import { db } from "../firebase";
+import { useAuth } from "../Auth/AuthContext.jsx";
 
 const AddComment = ({ postId }) => {
   const [text, setText] = useState("");

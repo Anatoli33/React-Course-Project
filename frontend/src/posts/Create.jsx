@@ -1,6 +1,6 @@
 import React from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db, auth } from "./firebase.js";
+import { db, auth } from "../firebase.js";
 
 const Create = () => {
   const actionFn = async (e) => {

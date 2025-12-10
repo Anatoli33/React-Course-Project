@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { doc, getDoc, deleteDoc } from "firebase/firestore";
-import { db } from "./firebase.js";
-import { useAuth } from "./AuthContext";
+import { db } from "../firebase.js";
+import { useAuth } from "../Auth/AuthContext.jsx";
+import AddComment from "../posts/Comment"; // пътят спрямо PostDetails
 
-import AddComment from "./Comment.jsx";
 import CommentsList from "./CommentList.jsx";
 
 const PostDetail = () => {

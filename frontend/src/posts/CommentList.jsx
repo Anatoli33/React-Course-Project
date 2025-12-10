@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
-import { db } from "./firebase";
+import { db } from "../firebase";
 
 const CommentsList = ({ postId }) => {
   const [comments, setComments] = useState([]);
