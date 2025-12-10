@@ -10,6 +10,7 @@ import Register from './Auth/Register.jsx';
 import Login from './Auth/Login.jsx';
 import { AuthProvider } from './Auth/AuthContext.jsx';
 import ProtectedRoute from './components/ProtectedRouter.jsx';
+import PublicRoute from './components/PublicRouter.jsx';
 import PostDetail from './posts/PostDetails.jsx';
 import Edit from './posts/Edit.jsx';
 import CreatePollPage from './polls/CreatePollsPage.jsx';
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Hero />} />
         <Route path="/posts" element={<Posts />} />
+
         <Route
           path="/create"
           element={
@@ -32,6 +34,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/profile"
           element={
@@ -40,14 +43,42 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          }
+        />
+
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+
         <Route path="/about" element={<About />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+
         <Route path="/details/:id" element={<PostDetail />} />
         <Route path="/edit/:id" element={<Edit />} />
+
         <Route path="/polls" element={<PollsFeed />} />
         <Route path="/polls/:id" element={<PoolDetails />} />
-        <Route path="/polls/create" element={<CreatePollPage />} />
+
+        <Route
+          path="/polls/create"
+          element={
+            <ProtectedRoute>
+              <CreatePollPage />
+            </ProtectedRoute>
+          }
+        />
+
       </Routes>
 
       <Footer />
