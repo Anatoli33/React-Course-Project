@@ -9,6 +9,13 @@ const CreatePollPage = () => {
   const navigate = useNavigate();
 
   const addOption = () => setOptions([...options, ""]);
+
+  const removeOption = (i) => {
+    if (options.length <= 2) return; // минимум 2 опции
+    const arr = options.filter((_, idx) => idx !== i);
+    setOptions(arr);
+  };
+
   const updateOption = (i, val) => {
     const arr = [...options];
     arr[i] = val;
@@ -18,41 +25,61 @@ const CreatePollPage = () => {
   const submitPoll = async () => {
     const user = auth.currentUser;
     if (!user) {
-      alert("Please log in to create a poll!");
+      alert("Моля, влезте в акаунта си, за да създадете анкета!");
       return;
     }
 
-    const clean = options.filter(o => o.trim() !== "");
-    if (!question || clean.length < 2) {
-      alert("Enter a question and at least 2 options");
+    const cleanOptions = options.map(o => o.trim()).filter(o => o !== "");
+    if (!question.trim() || cleanOptions.length < 2) {
+      alert("Въведете въпрос и поне 2 опции");
       return;
     }
 
-    await addDoc(collection(db, "polls"), {
-      question,
-      options: clean,
-      votes: clean.map(() => 0),
-      voters: {},
-      createdBy: user.uid,
-      createdAt: serverTimestamp()
-    });
+    try {
+      await addDoc(collection(db, "polls"), {
+        question: question.trim(),
+        options: cleanOptions,
+        votes: cleanOptions.map(() => 0),
+        voters: {},
+        createdBy: user.uid,
+        createdAt: serverTimestamp()
+      });
 
-    navigate("/polls");
+      // Изчистване на формата
+      setQuestion("");
+      setOptions(["", ""]);
+      navigate("/polls");
+    } catch (err) {
+      console.error("Грешка при създаване на анкета:", err);
+      alert("Неуспешно създаване на анкета");
+    }
   };
 
   return (
-<div className="create-poll-wrapper">
-  <h2>Create Poll</h2>
-  <input placeholder="Question" value={question} onChange={e => setQuestion(e.target.value)} />
+    <div className="create-poll-wrapper">
+      <h2>Създай анкета</h2>
+      <input 
+        placeholder="Въпрос" 
+        value={question} 
+        onChange={e => setQuestion(e.target.value)} 
+      />
 
-  {options.map((opt, i) => (
-    <input key={i} placeholder={`Option ${i + 1}`} value={opt} onChange={e => updateOption(i, e.target.value)} />
-  ))}
+      {options.map((opt, i) => (
+        <div key={i} className="option-input">
+          <input 
+            placeholder={`Опция ${i + 1}`} 
+            value={opt} 
+            onChange={e => updateOption(i, e.target.value)} 
+          />
+          {options.length > 2 && (
+            <button onClick={() => removeOption(i)}>✖</button>
+          )}
+        </div>
+      ))}
 
-  <button className="add-option-btn" onClick={addOption}>Add Option</button>
-  <button onClick={submitPoll}>Create</button>
-</div>
-
+      <button className="add-option-btn" onClick={addOption}>➕ Добави опция</button>
+      <button className="submit-btn" onClick={submitPoll}>Създай анкета</button>
+    </div>
   );
 };
 

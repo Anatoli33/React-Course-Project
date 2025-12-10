@@ -1,41 +1,37 @@
-import { 
-  collection, addDoc, serverTimestamp,
-  doc, updateDoc, increment, onSnapshot, query, orderBy
-} from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { db } from "../firebase";
+import { useState, useEffect } from "react";
+import { collection, query, orderBy, onSnapshot, doc, updateDoc, increment } from "firebase/firestore";
+import { db, auth } from "../firebase";
 
 export const usePolls = () => {
   const [polls, setPolls] = useState([]);
 
   useEffect(() => {
     const q = query(collection(db, "polls"), orderBy("createdAt", "desc"));
-    const unsub = onSnapshot(q, snap => {
-      setPolls(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+    const unsub = onSnapshot(q, (snapshot) => {
+      setPolls(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     });
+
     return () => unsub();
   }, []);
 
-  const createPoll = async (question, options, userId) => {
-    const clean = options.filter(o => o.trim() !== "");
-    if (!question || clean.length < 2) throw new Error("Минимум 2 опции!");
+  const vote = async (pollId, optionIndex) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert("Моля влезте в акаунта си, за да гласувате!");
+      return;
+    }
 
-    await addDoc(collection(db, "polls"), {
-      question,
-      options: clean,
-      votes: clean.map(() => 0),
-      voters: {},
-      createdBy: userId,
-      createdAt: serverTimestamp()
-    });
+    try {
+      const pollRef = doc(db, "polls", pollId);
+      await updateDoc(pollRef, {
+        [`votes.${optionIndex}`]: increment(1),
+        [`voters.${user.uid}`]: true,
+      });
+    } catch (err) {
+      console.error("Неуспешно гласуване:", err);
+      alert("Гласуването не беше успешно.");
+    }
   };
 
-  const vote = async (pollId, i, userId) => {
-    await updateDoc(doc(db, "polls", pollId), {
-      [`votes.${i}`]: increment(1),
-      [`voters.${userId}`]: true
-    });
-  };
-
-  return { polls, createPoll, vote };
+  return { polls, vote };
 };

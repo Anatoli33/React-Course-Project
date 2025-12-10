@@ -8,23 +8,13 @@ const AddComment = ({ postId }) => {
   const { currentUser } = useAuth();
 
   const addComment = async () => {
-    if (!text.trim()) return;
-
-    if (!currentUser) {
-      alert("Трябва да си логнат, за да коментираш!");
-      return;
-    }
-
-    if (!postId) {
-      console.error("Поста липсва!");
-      return;
-    }
+    if (!text.trim() || !currentUser || !postId) return;
 
     try {
       await addDoc(collection(db, "posts", postId, "comments"), {
         text,
         authorId: currentUser.uid,
-        authorName: currentUser.displayName ,
+        authorName: currentUser.displayName,
         createdAt: serverTimestamp(),
       });
       setText("");
@@ -34,14 +24,25 @@ const AddComment = ({ postId }) => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      addComment();
+    }
+  };
+
   return (
     <div className="add-comment">
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Напиши коментар..."
+        onKeyDown={handleKeyDown}
+        placeholder={currentUser ? "Напиши коментар..." : "Влезте, за да коментирате"}
+        disabled={!currentUser}
       />
-      <button onClick={addComment}>Публикувай</button>
+      <button onClick={addComment} disabled={!text.trim() || !currentUser}>
+        Публикувай
+      </button>
     </div>
   );
 };

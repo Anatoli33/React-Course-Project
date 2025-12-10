@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { collection, query, orderBy, onSnapshot, doc, updateDoc, increment } from "firebase/firestore";
-import { db, auth } from "../firebase";
+import { db } from "../firebase";
+import { useAuth } from "../Auth/AuthContext.jsx";
 
 const PollsFeed = () => {
   const [polls, setPolls] = useState([]);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const q = query(collection(db, "polls"), orderBy("createdAt", "desc"));
@@ -15,43 +17,34 @@ const PollsFeed = () => {
   }, []);
 
   const vote = async (pollId, optionIndex) => {
-    const user = auth.currentUser;
-    if (!user) {
+    if (!currentUser) {
       alert("Моля влезте в акаунта си, за да гласувате!");
       return;
     }
 
-    try {
-      const pollRef = doc(db, "polls", pollId);
-      await updateDoc(pollRef, {
-        [`votes.${optionIndex}`]: increment(1),
-        [`voters.${user.uid}`]: true,
-      });
-    } catch (err) {
-      console.error("Неуспешно гласуване:", err);
-    }
+    const pollRef = doc(db, "polls", pollId);
+    await updateDoc(pollRef, {
+      [`votes.${optionIndex}`]: increment(1),
+      [`voters.${currentUser.uid}`]: true,
+    });
   };
 
   return (
     <div className="polls-container">
       <h2>Анкети</h2>
-
-      {auth.currentUser && (
+      {currentUser && (
         <Link to="/polls/create">
-          <button className="post-button" style={{ marginBottom: "20px" }}>
-            ➕ Създай анкета
-          </button>
+          <button className="post-button">➕ Създай анкета</button>
         </Link>
       )}
 
       {polls.map((poll) => {
-        const user = auth.currentUser;
         const voters = poll.voters || {};
         const rawVotes = poll.votes || {};
         const options = Array.isArray(poll.options) ? poll.options : [];
         const votes = options.map((_, index) => rawVotes[index] || 0);
 
-        const hasVoted = user ? voters[user.uid] : false;
+        const hasVoted = currentUser ? voters[currentUser.uid] : false;
         const totalVotes = votes.reduce((sum, v) => sum + (v || 0), 0);
 
         return (
@@ -66,26 +59,12 @@ const PollsFeed = () => {
               {options.map((option, i) => {
                 const count = votes[i] || 0;
                 const pct = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
-
                 return (
                   <div className="poll-option" key={i}>
-                    <button
-                      disabled={hasVoted}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-
-                        vote(poll.id, i);
-                      }}
-                    >
+                    <button disabled={hasVoted} onClick={(e) => { e.preventDefault(); e.stopPropagation(); vote(poll.id, i); }}>
                       {option || `Опция ${i + 1}`}
                     </button>
-
-                    {hasVoted && (
-                      <span>
-                        {count} гласа ({pct}%)
-                      </span>
-                    )}
+                    {hasVoted && <span>{count} гласа ({pct}%)</span>}
                   </div>
                 );
               })}

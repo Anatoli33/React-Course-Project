@@ -20,16 +20,24 @@ const Register = () => {
     }
 
     try {
+      // Създаваме акаунт в Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      // Добавяме displayName към профила
       await updateProfile(userCredential.user, { displayName: username });
+
+      // Ресетваме формата и изчистваме грешките
       e.target.reset();
       setError("");
-      navigate("/posts"); // къде да отиде след регистрация
+
+      // Навигиране към главната страница с постове (може да е ProtectedRoute)
+      navigate("/posts");
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
         setError("Имейлът вече е използван.");
       } else {
         setError("Възникна грешка при регистрацията.");
+        console.error(err);
       }
     }
   };

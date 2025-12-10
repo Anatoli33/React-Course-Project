@@ -15,7 +15,7 @@ const CommentsList = ({ postId }) => {
       setComments(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     });
 
-    return unsubscribe;
+    return () => unsubscribe();
   }, [postId]);
 
   if (comments.length === 0) return <p>Няма коментари, все още!</p>;
@@ -26,6 +26,11 @@ const CommentsList = ({ postId }) => {
         <div key={c.id} className="comment">
           <strong>{c.authorName}</strong>
           <p>{c.text}</p>
+          {c.createdAt && (
+            <span className="comment-time">
+              {new Date(c.createdAt.toDate()).toLocaleString("bg-BG")}
+            </span>
+          )}
         </div>
       ))}
     </div>

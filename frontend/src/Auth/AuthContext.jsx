@@ -12,20 +12,24 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async user => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const userRef = doc(db, "users", user.uid);
-        const snap = await getDoc(userRef);
+        try {
+          const userRef = doc(db, "users", user.uid);
+          const snap = await getDoc(userRef);
 
-        if (!snap.exists()) {
-          await setDoc(userRef, {
-            username: user.email.split("@")[0],
-            avatar: `https://i.pravatar.cc/150?u=${user.uid}`,
-            bio: "Нов потребител в Sport Talk",
-            joined: new Date().toLocaleDateString("bg-BG")
-          });
+          if (!snap.exists()) {
+            await setDoc(userRef, {
+              username: user.displayName || user.email.split("@")[0],
+              avatar: `https://i.pravatar.cc/150?u=${user.uid}`,
+              bio: "Нов потребител в Sport Talk",
+              joined: new Date().toLocaleDateString("bg-BG"),
+            });
 
-          console.log("🔥 Създаден Firestore профил за:", user.email);
+            console.log("🔥 Създаден Firestore профил за:", user.email);
+          }
+        } catch (err) {
+          console.error("Грешка при създаване на профил:", err);
         }
 
         setCurrentUser(user);
@@ -39,11 +43,17 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  const logout = () => signOut(auth);
+  const logout = async () => {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.error("Грешка при изход:", err);
+    }
+  };
 
   return (
     <AuthContext.Provider value={{ currentUser, logout }}>
-      {!loading && children}
+      {!loading ? children : <p>Зареждане на потребителя...</p>}
     </AuthContext.Provider>
   );
 };

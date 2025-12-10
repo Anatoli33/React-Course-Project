@@ -15,6 +15,7 @@ const Profile = () => {
 
     const loadProfile = async () => {
       try {
+        // Зареждане на потребител
         const userRef = doc(db, "users", currentUser.uid);
         const userSnap = await getDoc(userRef);
 
@@ -26,18 +27,18 @@ const Profile = () => {
 
         setUser(userSnap.data());
 
+        // Зареждане на постовете
         const postsQuery = query(
           collection(db, "posts"),
           where("userId", "==", currentUser.uid),
-          orderBy("createdAt", "desc") 
+          orderBy("createdAt", "desc")
         );
 
         const postsSnap = await getDocs(postsQuery);
         setPosts(postsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-        setLoading(false);
-
       } catch (err) {
         console.error("❌ Error loading profile:", err);
+      } finally {
         setLoading(false);
       }
     };
@@ -52,27 +53,30 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <img src={user.avatar} alt="Avatar" className="profile-avatar" />
+        <img src={user.avatar || "https://i.pravatar.cc/150"} alt="Avatar" className="profile-avatar" />
         <div className="profile-info">
           <h2>@{user.username}</h2>
-          <p>Joined: {user.joined}</p>
+          <p>Joined: {user.joined || "—"}</p>
         </div>
       </div>
 
       <div className="profile-posts">
         <h3>Твоите публикации</h3>
-        {posts.length === 0 && <p>Нямаш публикации</p>}
-        {posts.map(post => (
-          <Link key={post.id} to={`/details/${post.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-            <div className="post">
-              <h4 className="post-title">{post.title}</h4>
-              <p className="post-text">{post.text || post.content}</p>
-              <span className="post-time">
-                {post.createdAt ? new Date(post.createdAt.toDate()).toLocaleString("bg-BG") : "—"}
-              </span>
-            </div>
-          </Link>
-        ))}
+        {posts.length === 0 ? (
+          <p>Нямаш публикации</p>
+        ) : (
+          posts.map(post => (
+            <Link key={post.id} to={`/details/${post.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="post">
+                <h4 className="post-title">{post.title || "Без заглавие"}</h4>
+                <p className="post-text">{post.text || post.content || "—"}</p>
+                <span className="post-time">
+                  {post.createdAt?.toDate ? new Date(post.createdAt.toDate()).toLocaleString("bg-BG") : "—"}
+                </span>
+              </div>
+            </Link>
+          ))
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom"; 
-import { useAuth } from "./Auth/AuthContext";
+import { Link } from "react-router-dom";
+import { useAuth } from "../Auth/AuthContext.jsx";
 
 const Header = () => {
   const { currentUser, logout } = useAuth();
@@ -16,9 +16,7 @@ const Header = () => {
         <Link to="/about">За нас</Link>
 
         {currentUser ? (
-          <>
-            <span onClick={logout} style={{ marginLeft: "20px", cursor: "pointer" }}>Изход</span>
-          </>
+          <span onClick={logout} style={{ marginLeft: "20px", cursor: "pointer" }}>Изход</span>
         ) : (
           <>
             <Link to="/register">Регистрация</Link>

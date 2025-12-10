@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { doc, getDoc, deleteDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc, updateDoc, increment, arrayUnion, arrayRemove, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { useAuth } from "../Auth/AuthContext.jsx";
-import AddComment from "../posts/Comment"; // пътят спрямо PostDetails
-
+import AddComment from './Comment.jsx';
 import CommentsList from "./CommentList.jsx";
 
 const PostDetail = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [likes, setLikes] = useState(0);
+  const [hasLiked, setHasLiked] = useState(false);
 
   const { currentUser } = useAuth();
 
@@ -20,22 +20,69 @@ const PostDetail = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setPost({ id: docSnap.id, ...docSnap.data() });
+        const data = { id: docSnap.id, ...docSnap.data() };
+        setPost(data);
+        setLikes(data.likes || 0);
+        setHasLiked(data.likedBy?.includes(currentUser?.uid));
       } else {
         console.log("No such post!");
       }
     };
 
     fetchPost();
-  }, [id]);
+  }, [id, currentUser]);
 
-  const likeHandler = () => setLikes(likes + 1);
+  const likeHandler = async () => {
+    if (!currentUser) {
+      alert("Моля влезте, за да харесате този пост!");
+      return;
+    }
 
-  if (!post) return <p>Loading post...</p>;
+    const postRef = doc(db, "posts", id);
+
+    if (!hasLiked) {
+      setLikes(likes + 1);
+      setHasLiked(true);
+      await updateDoc(postRef, {
+        likes: increment(1),
+        likedBy: arrayUnion(currentUser.uid),
+      });
+    } else {
+      setLikes(likes - 1);
+      setHasLiked(false);
+      await updateDoc(postRef, {
+        likes: increment(-1),
+        likedBy: arrayRemove(currentUser.uid),
+      });
+    }
+  };
+
+  const repostHandler = async () => {
+    if (!currentUser) {
+      alert("Моля, влезте, за да споделите този пост!");
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "posts"), {
+        user: currentUser.displayName || currentUser.email,
+        userId: currentUser.uid,
+        title: "Repost: " + (post.title || ""),
+        content: post.content || post.text || "",
+        hashtags: post.hashtags || [],
+        likes: 0,
+        likedBy: [],
+        createdAt: serverTimestamp(),
+      });
+      alert("Постът е успешно споделен!");
+    } catch (err) {
+      console.error("Грешка при Repost:", err);
+      alert("Неуспешно споделяне на поста.");
+    }
+  };
 
   const deleteHandler = async () => {
-    const confirmed = window.confirm("Сигурен ли си, че искаш да изтриеш поста?");
-    if (!confirmed) return;
+    if (!window.confirm("Сигурен ли си, че искаш да изтриеш поста?")) return;
 
     try {
       await deleteDoc(doc(db, "posts", id));
@@ -47,6 +94,8 @@ const PostDetail = () => {
     }
   };
 
+  if (!post) return <p>Loading post...</p>;
+
   return (
     <section className="post-detail-wrapper">
       <Link to="/posts" className="post-button">← Back to Posts</Link>
@@ -54,22 +103,25 @@ const PostDetail = () => {
       <div className="post-detail-card">
         <div className="post-header">
           <h2 className="post-title">{post.title}</h2>
-          <span className="post-user">{post.user}</span>
-          <span className="post-time">{post.time}</span>
+          <span className="post-user">@{post.user}</span>
+          <span className="post-time">
+            {post.createdAt?.toDate ? post.createdAt.toDate().toLocaleString("bg-BG") : "—"}
+          </span>
         </div>
 
         <div className="post-text">{post.text || post.content}</div>
 
-        {post.hashtags && (
-          <div className="hashtags">{post.hashtags.join(" ")}</div>
-        )}
+        {post.hashtags && <div className="hashtags">{post.hashtags.map(tag => `#${tag} `)}</div>}
 
         {currentUser && (
           <div className="post-buttons">
-            <button className="post-button" onClick={likeHandler}>
-              ❤️ Like {likes > 0 && likes}
+            <button className={`post-button ${hasLiked ? "liked" : ""}`} onClick={likeHandler}>
+              {hasLiked ? "💔 Unlike" : "❤️ Like"} {likes > 0 && likes}
             </button>
-            <button className="post-button">🔁 Repost</button>
+
+            <button className="post-button" onClick={repostHandler}>
+              🔁 Repost
+            </button>
 
             {currentUser.displayName === post.user && (
               <>
@@ -79,6 +131,7 @@ const PostDetail = () => {
             )}
           </div>
         )}
+
         <div className="comments-section">
           <h3>Коментари</h3>
           <CommentsList postId={id} />
@@ -88,7 +141,6 @@ const PostDetail = () => {
             <p>Само регистрирани потребители могат да коментират.</p>
           )}
         </div>
-
       </div>
     </section>
   );

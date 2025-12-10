@@ -1,32 +1,34 @@
+// src/Auth/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase.js";
+import { auth } from "../firebase";
 
 const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const eventFn = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    e.target.reset();
-    setError("");
-
     const { email, password } = data;
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/posts"); 
+      setError("");
+      e.target.reset();
+      // Навигация към страницата с постове (ProtectedRoute)
+      navigate("/posts");
     } catch (err) {
+      console.error(err);
       setError("Грешна парола или имейл!");
     }
   };
 
   return (
     <div className="register-wrapper">
-      <form className="register-form" onSubmit={eventFn}>
+      <form className="register-form" onSubmit={handleLogin}>
         <h2>Вход в SportTalk</h2>
 
         {error && <p className="error-message">{error}</p>}
