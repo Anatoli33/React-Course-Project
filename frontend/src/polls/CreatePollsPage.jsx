@@ -11,7 +11,7 @@ const CreatePollPage = () => {
   const addOption = () => setOptions([...options, ""]);
 
   const removeOption = (i) => {
-    if (options.length <= 2) return; // минимум 2 опции
+    if (options.length <= 2) return;
     const arr = options.filter((_, idx) => idx !== i);
     setOptions(arr);
   };
@@ -45,7 +45,6 @@ const CreatePollPage = () => {
         createdAt: serverTimestamp()
       });
 
-      // Изчистване на формата
       setQuestion("");
       setOptions(["", ""]);
       navigate("/polls");

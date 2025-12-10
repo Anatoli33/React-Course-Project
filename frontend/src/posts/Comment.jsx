@@ -19,8 +19,8 @@ const AddComment = ({ postId }) => {
       });
       setText("");
     } catch (err) {
-      console.error("Грешка при добавяне на коментар:", err);
-      alert("Неуспешно добавяне на коментар.");
+      console.error("Error adding comment:", err);
+      alert("Failed to add comment.");
     }
   };
 
@@ -37,11 +37,11 @@ const AddComment = ({ postId }) => {
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder={currentUser ? "Напиши коментар..." : "Влезте, за да коментирате"}
+        placeholder={currentUser ? "Type your comment..." : "Log in to comment"}
         disabled={!currentUser}
       />
       <button onClick={addComment} disabled={!text.trim() || !currentUser}>
-        Публикувай
+        Post
       </button>
     </div>
   );

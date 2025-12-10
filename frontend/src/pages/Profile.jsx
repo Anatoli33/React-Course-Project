@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { doc, getDoc, collection, query, where, orderBy, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { useAuth } from "../Auth/AuthContext";
@@ -15,19 +15,17 @@ const Profile = () => {
 
     const loadProfile = async () => {
       try {
-        // Зареждане на потребител
         const userRef = doc(db, "users", currentUser.uid);
         const userSnap = await getDoc(userRef);
 
         if (!userSnap.exists()) {
-          console.error("User document does not exist in Firestore.");
+          console.error("Потребителя не съществува!");
           setLoading(false);
           return;
         }
 
         setUser(userSnap.data());
 
-        // Зареждане на постовете
         const postsQuery = query(
           collection(db, "posts"),
           where("userId", "==", currentUser.uid),
@@ -37,7 +35,7 @@ const Profile = () => {
         const postsSnap = await getDocs(postsQuery);
         setPosts(postsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
       } catch (err) {
-        console.error("❌ Error loading profile:", err);
+        console.error("Грешка при зареждане на профила:", err);
       } finally {
         setLoading(false);
       }
@@ -53,7 +51,7 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <img src={user.avatar || "https://i.pravatar.cc/150"} alt="Avatar" className="profile-avatar" />
+        <img src={user.avatar || "https://.pravatar.cc/150"} alt="Avatar" className="profile-avatar" />
         <div className="profile-info">
           <h2>@{user.username}</h2>
           <p>Joined: {user.joined || "—"}</p>

@@ -1,5 +1,4 @@
-// src/Auth/Register.jsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -20,17 +19,10 @@ const Register = () => {
     }
 
     try {
-      // Създаваме акаунт в Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-
-      // Добавяме displayName към профила
       await updateProfile(userCredential.user, { displayName: username });
-
-      // Ресетваме формата и изчистваме грешките
       e.target.reset();
       setError("");
-
-      // Навигиране към главната страница с постове (може да е ProtectedRoute)
       navigate("/posts");
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {

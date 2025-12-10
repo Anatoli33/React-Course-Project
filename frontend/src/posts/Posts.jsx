@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
@@ -19,17 +19,17 @@ const Posts = () => {
 
   return (
     <section id="feed" className="feed">
-      <h3 className="feed-title">Последни публикации</h3>
+      <h3 className="feed-title">Latest Posts</h3>
 
       {currentUser && (
         <Link to="/create">
           <button className="post-button" style={{ margin: "20px" }}>
-            ➕ Създай пост
+            ➕ Create Post
           </button>
         </Link>
       )}
 
-      {posts.length === 0 && <p>Няма публикувани постове</p>}
+      {posts.length === 0 && <p>No posts yet.</p>}
       
       {posts.map(post => (
         <Post key={post.id} post={post} currentUser={currentUser} />
@@ -48,7 +48,7 @@ const Post = ({ post, currentUser }) => {
           <span className="post-user">@{post.user || "Unknown"}</span>
           <br />
           <span className="post-time">
-            {post.createdAt ? new Date(post.createdAt.toDate()).toLocaleString("bg-BG") : "—"}
+            {post.createdAt ? new Date(post.createdAt.toDate()).toLocaleString("en-US") : "—"}
           </span>
         </div>
 

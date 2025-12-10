@@ -16,7 +16,7 @@ const Edit = () => {
       if (snap.exists()) {
         setPost(snap.data());
       } else {
-        alert("Постът не съществува.");
+        alert("Post does not exist.");
         navigate("/posts");
       }
     };
@@ -32,14 +32,19 @@ const Edit = () => {
 
     const ref = doc(db, "posts", id);
 
-    await updateDoc(ref, {
-      title: data.title,
-      content: data.content,
-      imageUrl: data.imageUrl || "",
-    });
+    try {
+      await updateDoc(ref, {
+        title: data.title,
+        content: data.content,
+        imageUrl: data.imageUrl || "",
+      });
 
-    alert("Постът е редактиран успешно!");
-    navigate(`/details/${id}`);
+      alert("Post updated successfully!");
+      navigate(`/details/${id}`);
+    } catch (err) {
+      console.error("Error updating post:", err);
+      alert("Failed to update post.");
+    }
   };
 
   if (!post) return <p>Loading...</p>;
@@ -71,7 +76,7 @@ const Edit = () => {
           defaultValue={post.imageUrl}
         />
 
-        <button type="submit">Запази промените</button>
+        <button type="submit">Save Changes</button>
       </form>
     </div>
   );

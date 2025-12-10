@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { doc, getDoc, deleteDoc, updateDoc, increment, arrayUnion, arrayRemove, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.js";
@@ -34,7 +34,7 @@ const PostDetail = () => {
 
   const likeHandler = async () => {
     if (!currentUser) {
-      alert("Моля влезте, за да харесате този пост!");
+      alert("Please log in to like this post!");
       return;
     }
 
@@ -59,7 +59,7 @@ const PostDetail = () => {
 
   const repostHandler = async () => {
     if (!currentUser) {
-      alert("Моля, влезте, за да споделите този пост!");
+      alert("Please log in to repost this post!");
       return;
     }
 
@@ -74,23 +74,23 @@ const PostDetail = () => {
         likedBy: [],
         createdAt: serverTimestamp(),
       });
-      alert("Постът е успешно споделен!");
+      alert("Post shared successfully!");
     } catch (err) {
-      console.error("Грешка при Repost:", err);
-      alert("Неуспешно споделяне на поста.");
+      console.error("Error reposting:", err);
+      alert("Failed to share the post.");
     }
   };
 
   const deleteHandler = async () => {
-    if (!window.confirm("Сигурен ли си, че искаш да изтриеш поста?")) return;
+    if (!window.confirm("Are you sure you want to delete this post?")) return;
 
     try {
       await deleteDoc(doc(db, "posts", id));
-      alert("Постът е изтрит успешно!");
+      alert("Post deleted successfully!");
       window.location.href = "/posts";
     } catch (err) {
       console.error("Error deleting post:", err);
-      alert("Грешка при изтриването.");
+      alert("Failed to delete the post.");
     }
   };
 
@@ -105,7 +105,7 @@ const PostDetail = () => {
           <h2 className="post-title">{post.title}</h2>
           <span className="post-user">@{post.user}</span>
           <span className="post-time">
-            {post.createdAt?.toDate ? post.createdAt.toDate().toLocaleString("bg-BG") : "—"}
+            {post.createdAt?.toDate ? post.createdAt.toDate().toLocaleString("en-US") : "—"}
           </span>
         </div>
 
@@ -133,12 +133,12 @@ const PostDetail = () => {
         )}
 
         <div className="comments-section">
-          <h3>Коментари</h3>
+          <h3>Comments</h3>
           <CommentsList postId={id} />
           {currentUser ? (
             <AddComment postId={id} />
           ) : (
-            <p>Само регистрирани потребители могат да коментират.</p>
+            <p>Only registered users can comment.</p>
           )}
         </div>
       </div>

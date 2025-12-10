@@ -18,7 +18,7 @@ const CommentsList = ({ postId }) => {
     return () => unsubscribe();
   }, [postId]);
 
-  if (comments.length === 0) return <p>Няма коментари, все още!</p>;
+  if (comments.length === 0) return <p>No comments yet...</p>;
 
   return (
     <div className="comments">
@@ -28,7 +28,7 @@ const CommentsList = ({ postId }) => {
           <p>{c.text}</p>
           {c.createdAt && (
             <span className="comment-time">
-              {new Date(c.createdAt.toDate()).toLocaleString("bg-BG")}
+              {new Date(c.createdAt.toDate()).toLocaleString("en-US")}
             </span>
           )}
         </div>

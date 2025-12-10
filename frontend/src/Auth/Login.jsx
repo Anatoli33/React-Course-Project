@@ -1,4 +1,3 @@
-// src/Auth/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -18,7 +17,6 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, email, password);
       setError("");
       e.target.reset();
-      // Навигация към страницата с постове (ProtectedRoute)
       navigate("/posts");
     } catch (err) {
       console.error(err);

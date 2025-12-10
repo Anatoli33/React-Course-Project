@@ -21,12 +21,12 @@ export const AuthProvider = ({ children }) => {
           if (!snap.exists()) {
             await setDoc(userRef, {
               username: user.displayName || user.email.split("@")[0],
-              avatar: `https://i.pravatar.cc/150?u=${user.uid}`,
+              avatar: `https://img.freepik.com/premium-vector/vector-illustration-man-avatar-simple-minimalist-flat-design-style_844724-7066.jpg?w=360`,
               bio: "Нов потребител в Sport Talk",
               joined: new Date().toLocaleDateString("bg-BG"),
             });
 
-            console.log("🔥 Създаден Firestore профил за:", user.email);
+            console.log("Създаден Firestore профил за:", user.email);
           }
         } catch (err) {
           console.error("Грешка при създаване на профил:", err);
